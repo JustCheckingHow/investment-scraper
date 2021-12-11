@@ -11,6 +11,38 @@ from elasticsearch.helpers import streaming_bulk
 from tqdm import tqdm
 
 
+additional_stopwords_list = ["działalność",
+                             'produkcja',
+                             'działalność', 'działalności',
+                             "zakresie", "związanych", "związany", "związane",
+                             'z',
+                             'sprzedaż',
+                             'wyrobów',
+                             'w',
+                             'pozostałych',
+                             'hurtowa',
+                             'detaliczna',
+                             'prowadzona',
+                             'sklepach',
+                             'oraz',
+                             'wyspecjalizowanych',
+                             'związana',
+                             'gdzie',
+                             'indziej',
+                             'do',
+                             'pozostała',
+                             'wyłączeniem',
+                             'usługowa',
+                             'dla',
+                             'zakresie',
+                             'urządzeń',
+                             'na',
+                             'niesklasyfikowana',
+                             'pozostałe',
+                             'artykułów',
+                             'wspomagająca', 'towarów']
+
+
 def create_fund_indx(es: Elasticsearch, doc_dims: int = 256):
     """Create fund index"""
     dense_funds = {
@@ -18,41 +50,37 @@ def create_fund_indx(es: Elasticsearch, doc_dims: int = 256):
             "analysis": {
                 "analyzer": {
                     "pl_analyzer": {
-                        "type": "standard",
-                        "filter": ["lowercase", "polish_stop", "polish_stem"],
+                        "type": "custom",
+                        "tokenizer": "whitespace",
+                        "filter": ["lowercase", "polish_stem", "polish_stop_filter"],
                         "char_filter": ["html_strip"]
                     },
                 },
                 "filter": {
-                    "polish_stop": {
+                    "polish_stop_filter": {
                         "type": "stop",
-                                "ignore_case": True,
-                                "stopwords": ["_polish_"]  # plugin required
+                        "ignore_case": True,
+                        # plugin required
+                        "stopwords": ["_polish_", *additional_stopwords_list]
                     }
                 }
             },
         },
         "mappings": {
             "properties": {
-                """ 
-                This is in case we roll out doc2vec
-                """
                 # "text_vector": {
                 #     "type": "dense_vector",
                 #     "dims": doc_dims
                 # },
                 "description": {
                     "type": "text",
-                    "analyzer": "polish"
+                    "analyzer": "pl_analyzer"
                 },
                 "name": {
-                    "type": "text"
+                    "type": "keyword"
                 },
                 "url": {
                     "type": "text"
-                },
-                "fund_source": {
-                    "type": "keyword"
                 }
             }
         }

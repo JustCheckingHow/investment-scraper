@@ -117,7 +117,7 @@ def create_and_feed() -> Elasticsearch:
     return es
 
 
-def multiple_term_search(PKD: List[str]):
+def multiple_term_search(es: Elasticsearch, PKD: List[str]):
     query = {
         'query': {
             'query_string': {

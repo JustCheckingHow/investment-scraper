@@ -52,7 +52,8 @@ def create_fund_indx(es: Elasticsearch, doc_dims: int = 256):
                     "pl_analyzer": {
                         "type": "custom",
                         "tokenizer": "whitespace",
-                        "filter": ["lowercase", "polish_stem", "polish_stop_filter"],
+                        "filter": ["lowercase", "polish_stop_filter",
+                                   "polish_stem", "polish_stop_filter"],
                         "char_filter": ["html_strip"]
                     },
                 },

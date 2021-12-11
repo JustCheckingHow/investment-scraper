@@ -8,7 +8,6 @@ import re
 import redis
 import pickle
 import json
-import finders
 from entity_scraper import get_info_by_regon, get_info_by_nip
 
 
@@ -42,14 +41,12 @@ def search(value: str):
     elif len(value) == 10:
         # REGON 10
         query = get_info_by_regon(value)
-    elif pkd_re.match(value) != None:
+    #  pkd_re.match(value) != None:
+    else:
         # PKD
         query = [[value]]
 
     query = query[0][0]
-    if value.startswith("PKD"):
-        return finders.find_by_pkd(value)
-
     results = simple_query(es, query)
     results = transform_es_search_results(results)
     return {

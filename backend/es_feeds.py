@@ -99,10 +99,6 @@ def upload_datasets(es: Elasticsearch, dataset_ext="*.pkl"):
 
 
 def create_es_instance() -> Elasticsearch:
-    dotenv_path = os.path.join(
-        os.path.pardir, 'elastic' '.env'
-    )
-    # load_dotenv(dotenv_path=dotenv_path)
     load_dotenv(find_dotenv())
     user = os.environ.get("USER")
     password = os.environ.get("PASS")

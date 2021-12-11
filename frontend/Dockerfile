@@ -10,5 +10,5 @@ EXPOSE 3000
 
 WORKDIR /app
 
-CMD [ "sleep", "10000" ]
-#CMD [ "npm", "start" ]
+#CMD [ "sleep", "10000" ]
+CMD [ "npm", "start" ]

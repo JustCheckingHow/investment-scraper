@@ -35,14 +35,15 @@ def transform_es_search_results(es_result):
 @app.get("/search/{value}")
 def search(value: str):
     print(value)
+    additional_info = {}
     if len(value) == 9:
         # NIP
         # primary PKD
-        primary_pkd, secondary_pkd = get_info_by_nip(value)
+        primary_pkd, secondary_pkd, additional_info = get_info_by_nip(value)
         query = [*primary_pkd, *secondary_pkd]
     elif len(value) == 10:
         # REGON 10
-        primary_pkd, secondary_pkd = get_info_by_regon(value)
+        primary_pkd, secondary_pkd, additional_info = get_info_by_regon(value)
         query = [*primary_pkd, *secondary_pkd]
     else:
         # PKD
@@ -59,7 +60,8 @@ def search(value: str):
     results = transform_es_search_results(results)
     return {
         "search_results": results,
-        "parsedQuery": query
+        "parsedQuery": query,
+        "additional_info": additional_info
     }
 
 

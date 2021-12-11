@@ -7,10 +7,10 @@ const background = require("../../public/background.jpg");
 export class Logo extends Component {
     render() {
         return (
-            <div id="logo-img" className="logo d-flex">
-                <img className="mx-auto mt-auto"
-                    style={{ objectFit: 'contain', width: '400px', height: '100%' }}
-                    src="https://static.polityka.pl/_resource/res/path/38/e6/38e656cd-7edd-4822-ab12-dea01a667133" alt="logo" />
+            <div className="logo d-flex">
+                <img id="logo-img" className="mx-auto mt-auto"
+                    style={{ objectFit: 'contain', width: '250px', height: '100%' }}
+                    src="http://www.howtowearfair.com/wp-content/uploads/2018/02/logo-placeholder-1-1.png" alt="logo" />
             </div>
         );
     }
@@ -19,7 +19,7 @@ export class Logo extends Component {
 export class SearchBarContainer extends Component {
     render() {
         return (
-            <div className="search-bar w-100 d-flex" style={{
+            <div id="search-bar" className="search-bar w-100 d-flex" style={{
                 backgroundImage: `url(${background})`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
@@ -50,13 +50,21 @@ export class SearchBar extends Component {
         }
     }
 
+    hideTopBar = () => {
+        document.getElementById("logo-img").style.display = "none";
+        document.getElementById("search-bar").style.height = "auto";
+        console.log("hide");
+    }
+
     buttonSearch = () => {
         this.props.onSearch(this.state.input);
+        this.hideTopBar()
     }
 
     onKeyPress = (e) => {
         if (e.key === 'Enter') {
             this.props.onSearch(e.target.value);
+            this.hideTopBar()
             return;
         }
 

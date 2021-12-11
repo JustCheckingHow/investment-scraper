@@ -1,14 +1,25 @@
 {
     "search": [
         {
-            "name": "name",
-            "description": "description",
-            "url": "#"
-        },
-        {
-            "name": "name2",
-            "description": "description2",
-            "url": "#"
+            "id": "test",
+            "search_results": [
+                {
+                    "name": "name",
+                    "description": "description",
+                    "url": "#"
+                },
+                {
+                    "name": "name2",
+                    "description": "description2",
+                    "url": "#"
+                }
+            ],
+            "additional_info": {
+                "regon": "123456789",
+                "nip": "123456789",
+                "name": "name",
+                "type_of_entity": "type_of_entity"
+            }
         }
     ]
 }

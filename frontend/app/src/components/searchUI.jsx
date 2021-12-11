@@ -9,8 +9,8 @@ export class Logo extends Component {
         return (
             <div id="logo-img" className="logo d-flex">
                 <img className="mx-auto mt-auto"
-                    style={{ objectFit: 'contain', width: '400px', height: '100%' }}
-                    src="https://static.polityka.pl/_resource/res/path/38/e6/38e656cd-7edd-4822-ab12-dea01a667133" alt="logo" />
+                    style={{ objectFit: 'contain', width: '250px', height: '100%' }}
+                    src="http://www.howtowearfair.com/wp-content/uploads/2018/02/logo-placeholder-1-1.png" alt="logo" />
             </div>
         );
     }

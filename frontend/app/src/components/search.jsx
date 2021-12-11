@@ -8,8 +8,9 @@ class Tile extends React.Component {
     }
 
     render() {
+		console.log(this.props.tile);
         return (
-            <a href={this.props.tile.url} style={{ textDecoration: "none" }} >
+            <a href={this.props.tile.URL} style={{ textDecoration: "none" }} >
                 <MDBRow
                     className={"my-3 ml-0 mr-0 hover-shadow h-100 p-0 border"}
                     style={{ color: "black", backgroundColor: "white" }}
@@ -72,7 +73,7 @@ class Search extends React.Component {
             .then(data => {
                 console.log(data);
                 this.setState({
-                    tiles: data
+                    tiles: data['search_results']
                 });
             });
     }

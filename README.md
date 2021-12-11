@@ -11,3 +11,4 @@ Contains PL-analyzer plugin for stemming and stopwords analysis
 ```bash
 docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" lemurpwned/elastic713-pl
 ```
+

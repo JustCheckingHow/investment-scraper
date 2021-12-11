@@ -75,7 +75,6 @@ def extract_funds():
             name='div', class_="card"
         )
         for card in res[2:]:
-            href = card.parent.find_all(href=True)
             parent_href = card.parent.get('href')
             if parent_href.startswith('/component'):
                 parent_href = COMPONENT_URL.format(parent_href)

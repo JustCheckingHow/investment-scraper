@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import time
 from bs4 import BeautifulSoup
+import pandas as pd
 
 
 def get_info_by_regon(regon):
@@ -49,6 +50,7 @@ def get_info(path):
 
     primary_pkds = []
     secondary_pkds = []
+    additional_info = None
 
     try:
         bsoup = BeautifulSoup(pkd_tables[0].get_attribute('innerHTML'))
@@ -62,9 +64,26 @@ def get_info(path):
             for tr in trs:
                 secondary_pkds.append(tr.find_all('td')[1].text)
 
+        additional_info = get_additional_info(driver) 
     except Exception as e:
         print(e)
     finally:
         driver.close()
 
-    return primary_pkds, secondary_pkds
+    return primary_pkds, secondary_pkds, additional_info
+
+def get_additional_info(driver):
+    tables = driver.find_elements(By.CLASS_NAME, "tabelaRaportWewn") 
+    additional_info = {
+        "regon": driver.find_element(By.ID, 'praw_regon9').text,
+        "nip": driver.find_element(By.ID, 'praw_nip').text,
+        "name": driver.find_element(By.ID, 'praw_nazwa').text,
+        "type_of_entity": driver.find_element(By.ID, 'praw_nazwaPodstawowejFormyPrawnej').text,
+        "type_of_entity_exact": driver.find_element(By.ID, 'praw_nazwaSzczegolnejFormyPrawnej').text,
+        "code_and_type": driver.find_element(By.ID, 'praw_nazwaFormyWlasnosci').text,
+        "registering": driver.find_element(By.ID, 'praw_nazwaFormyWlasnosci').text,
+    }
+
+    return additional_info
+
+    

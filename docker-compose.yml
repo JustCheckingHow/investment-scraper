@@ -1,0 +1,18 @@
+version: "3.3"
+services:
+  parcel:
+    build: frontend/
+    volumes:
+      - ./frontend/app:/app
+    ports:
+      - "3000:3000"
+
+  backend:
+    build: backend/ 
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+
+  redis:
+    image: redis

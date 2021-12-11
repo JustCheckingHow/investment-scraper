@@ -67,7 +67,7 @@ class Search extends React.Component {
     loadTiles = (query) => {
         console.log("Loading tiles");
         console.log(query);
-        fetch(`http://localhost:3001/search?query=${query}`)
+        fetch(`http://localhost:8000/search/${query}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);

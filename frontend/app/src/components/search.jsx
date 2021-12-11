@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBCol, MDBRow, MDBCard, MDBTypography } from "mdb-react-ui-kit";
+import { MDBCol, MDBRow, MDBCard, MDBTypography, MDBCardBody } from "mdb-react-ui-kit";
 import { Logo, SearchBar } from './searchUI';
 
 class Tile extends React.Component {
@@ -9,7 +9,7 @@ class Tile extends React.Component {
 
     render() {
         return (
-            <a href={this.props.tile.url} style={{textDecoration: "none"}} >
+            <a href={this.props.tile.url} style={{ textDecoration: "none" }} >
                 <MDBRow
                     className={"my-3 ml-0 mr-0 hover-shadow h-100 p-0 border"}
                     style={{ color: "black", backgroundColor: "white" }}
@@ -42,7 +42,7 @@ class Tile extends React.Component {
                             </MDBCol>
                         </MDBRow>
                         <MDBRow className="align-items-end flex-grow-1 ml-3 mr-3 pt-2 pb-2 border-top">
-                            {/* {this.getInfoRow("ProvisionCosts")} */}
+                            {/* {this.getInfoTiles("ProvisionCosts")} */}
                             Badge
                         </MDBRow>
                     </MDBCol>
@@ -58,16 +58,6 @@ class Search extends React.Component {
         this.state = {
             showFilters: false,
             tiles: [
-                {
-                    "name": "name",
-                    "description": "description",
-                    "url": "#"
-                },
-                {
-                    "name": "name2",
-                    "description": "description2",
-                    "url": "#"
-                }
             ]
         };
     }
@@ -88,22 +78,78 @@ class Search extends React.Component {
     render() {
         return (
             <div>
-                {/* <Logo /> */}
                 <SearchBar onSearch={this.loadTiles} />
-                <MDBRow style={{ margin: "0 5%" }}>
-                    <MDBCol className="col-3 m-0" >
-                    </MDBCol>
-                    <MDBCol className="col-9 m-0" style={{ height: "fit-content" }} >
-                        {
-                            this.state.tiles.map((tile, index) =>
-                                <Tile key={index} tile={tile} />
-                            )
-                        }
-                    </MDBCol>
-                </MDBRow>
+                <div style={{ margin: "0 20%" }} >
+                    <MDBRow >
+                        <MDBCol className="col-3 m-0 p-0" >
+                        </MDBCol>
+                        <MDBCol className="col-9 m-0 p-2" style={{ height: "fit-content" }} >
+                            {
+                                this.state.tiles.map((tile, index) =>
+                                    <Tile key={index} tile={tile} />
+                                )
+                            }
+                        </MDBCol>
+                    </MDBRow>
+                    {getInfoTiles()}
+                </div>
             </div>
         );
     }
 }
 
 export default Search;
+
+function getInfoTiles() {
+    return <MDBRow className="mt-3 mb-3">
+        <MDBCol className="col-6 ">
+            <MDBCard className="shadow-0 border">
+                <MDBCardBody>
+                    <MDBRow>
+                        <MDBCol>
+                            <MDBTypography tag="h2" variant="h2-responsive">
+                                <p className="mb-0">
+                                    MoneyMaker
+                                </p>
+                            </MDBTypography>
+                        </MDBCol>
+                    </MDBRow>
+                    <MDBRow>
+                        <MDBCol>
+                            <MDBTypography tag="h6" variant="h6-responsive" style={{ lineHeight: "1.6" }}>
+                                MoneyMaker to innowacyjne rozwiązanie dla przedsiębiorców które w inteligentny sposób pomoże Ci odnaleźć okazje do inwestycji i dofinansowań dostosowane do Twojej firmy.
+                            </MDBTypography>
+                            <MDBTypography tag="h6" variant="h6-responsive" style={{ lineHeight: "1.6" }}>
+                                Zacznij od wpisania nazwy, numeru REGON, NIPu, albo kategorii PKD w ramach której chcesz znaleźć okazje do inwestycji.
+                            </MDBTypography>
+                        </MDBCol>
+                    </MDBRow>
+                </MDBCardBody>
+            </MDBCard>
+        </MDBCol>
+        <MDBCol className="col-6 ">
+            <MDBCard className="shadow-0 border">
+                <MDBCardBody>
+                    <MDBRow>
+                        <MDBCol>
+                            <MDBTypography tag="h2" variant="h2-responsive">
+                                <p className="mb-0">
+                                    MoneyMaker
+                                </p>
+                            </MDBTypography>
+                        </MDBCol>
+                    </MDBRow>
+                    <MDBRow>
+                        <MDBCol>
+                            <MDBTypography tag="h6" variant="h6-responsive">
+                                <p className="text-muted mb-0">
+                                    Description
+                                </p>
+                            </MDBTypography>
+                        </MDBCol>
+                    </MDBRow>
+                </MDBCardBody>
+            </MDBCard>
+        </MDBCol>
+    </MDBRow>;
+}

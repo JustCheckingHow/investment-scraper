@@ -85,15 +85,46 @@ class Search extends React.Component {
                     <MDBRow className="mt-3" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                         <MDBCol>
                             <MDBRow>
-                                
-                                <MDBCol className="col-6">
-                                    <MDBTypography tag="h3" variant="h3-responsive" style={{ fontFamily: "'Montserrat', sans-serif", textAlign: "right" }}>
+                                <MDBCol className="col-3 pr-2">
+                                    <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "right" }}>
                                         <strong>Nazwa firmy</strong>
                                     </MDBTypography>
                                 </MDBCol>
-                                <MDBCol className="col-6">
-                                    <MDBTypography tag="h3" variant="h3-responsive" style={{ fontFamily: "'Montserrat', sans-serif", textAlign: "right" }}>
-                                        <strong>Nazwa firmy</strong>
+                                <MDBCol className="col-3">
+                                    <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "left" }}>
+                                        xd
+                                    </MDBTypography>
+                                </MDBCol>
+                                <MDBCol className="col-3 pr-2">
+                                    <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "right" }}>
+                                        <strong>NIP</strong>
+                                    </MDBTypography>
+                                </MDBCol>
+                                <MDBCol className="col-3">
+                                    <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "left" }}>
+                                        NIP
+                                    </MDBTypography>
+                                </MDBCol>
+                            </MDBRow>
+                            <MDBRow>
+                                <MDBCol className="col-3 pr-2">
+                                    <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "right" }}>
+                                        <strong>REGON</strong>
+                                    </MDBTypography>
+                                </MDBCol>
+                                <MDBCol className="col-3">
+                                    <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "left" }}>
+                                        3123123
+                                    </MDBTypography>
+                                </MDBCol>
+                                <MDBCol className="col-3 pr-2">
+                                    <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "right" }}>
+                                        <strong>NIP</strong>
+                                    </MDBTypography>
+                                </MDBCol>
+                                <MDBCol className="col-3">
+                                    <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "left" }}>
+                                        NIP
                                     </MDBTypography>
                                 </MDBCol>
                             </MDBRow>

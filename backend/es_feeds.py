@@ -132,7 +132,7 @@ def multiple_term_search(es: Elasticsearch, PKD: List[str]):
         }
     }
 
-    results = es.search(index='test', body=query)
+    results = es.search(index='funds', body=query)
     return results['hits']['hits']
 
 

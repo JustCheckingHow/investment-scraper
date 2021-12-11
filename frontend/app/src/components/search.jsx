@@ -8,7 +8,7 @@ class Tile extends React.Component {
     }
 
     render() {
-		console.log(this.props.tile);
+        console.log(this.props.tile);
         return (
             <a href={this.props.tile.URL} style={{ textDecoration: "none" }} >
                 <MDBRow
@@ -51,7 +51,7 @@ class Tile extends React.Component {
     }
 }
 
-class Search extends React.Component {   
+class Search extends React.Component {
     PKD_ENDPOINT = "http://localhost:8000/pkd/";
 
     constructor(props) {
@@ -59,19 +59,25 @@ class Search extends React.Component {
         this.state = {
             showFilters: false,
             tiles: [
-            ]
+            ],
+            companyInfo: {},
+            showCompany: false,
         };
     }
 
     loadTiles = (query) => {
         console.log("Loading tiles");
         console.log(query);
-        fetch(`http://localhost:8000/search/${query}`)
+        fetch(`http://localhost:3001/search/${query}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                var showCompany = Object.keys(data['additional_info']).length > 0;
+                console.log(data['additional_info']);
                 this.setState({
-                    tiles: data['search_results']
+                    tiles: data['search_results'],
+                    companyInfo: data['additional_info'],
+                    showCompany: showCompany
                 });
             });
     }
@@ -81,9 +87,8 @@ class Search extends React.Component {
             <div>
                 <SearchBar PkdEndpoint={this.PKD_ENDPOINT} onSearch={this.loadTiles} />
                 <div style={{ margin: "0 20%" }} >
+                    {this.renderCompany()}
                     <MDBRow >
-                        {/* <MDBCol className="col-3 m-0 p-0" > */}
-                        {/* </MDBCol> */}
                         <MDBCol className="col-12 m-0 p-2" style={{ height: "fit-content" }} >
                             {
                                 this.state.tiles.map((tile, index) =>
@@ -96,6 +101,60 @@ class Search extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    renderCompany = () => {
+        if (!this.state.showCompany)
+            return null;
+
+        return (<MDBRow className="mt-3" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+            <MDBCol>
+                <MDBRow>
+                    <MDBCol className="col-3 pr-2">
+                        <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "right" }}>
+                            <strong>Nazwa firmy</strong>
+                        </MDBTypography>
+                    </MDBCol>
+                    <MDBCol className="col-3">
+                        <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "left" }}>
+                            {this.state.companyInfo['name']}
+                        </MDBTypography>
+                    </MDBCol>
+                    <MDBCol className="col-3 pr-2">
+                        <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "right" }}>
+                            <strong>NIP</strong>
+                        </MDBTypography>
+                    </MDBCol>
+                    <MDBCol className="col-3">
+                        <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "left" }}>
+                            {this.state.companyInfo['nip']}
+                        </MDBTypography>
+                    </MDBCol>
+                </MDBRow>
+                <MDBRow>
+                    <MDBCol className="col-3 pr-2">
+                        <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "right" }}>
+                            <strong>REGON</strong>
+                        </MDBTypography>
+                    </MDBCol>
+                    <MDBCol className="col-3">
+                        <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "left" }}>
+                            {this.state.companyInfo['regon']}
+                        </MDBTypography>
+                    </MDBCol>
+                    <MDBCol className="col-3 pr-2">
+                        <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "right" }}>
+                            <strong>NIP</strong>
+                        </MDBTypography>
+                    </MDBCol>
+                    <MDBCol className="col-3">
+                        <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "left" }}>
+                            NIP
+                        </MDBTypography>
+                    </MDBCol>
+                </MDBRow>
+            </MDBCol>
+        </MDBRow>);
     }
 }
 

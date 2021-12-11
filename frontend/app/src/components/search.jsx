@@ -2,7 +2,6 @@ import React from 'react';
 import { MDBCol, MDBRow, MDBCard, MDBTypography, MDBCardBody, MDBListGroup, MDBListGroupItem } from "mdb-react-ui-kit";
 import { Logo, SearchBar, Tile, TilePlaceholder } from './searchUI';
 
-
 class Search extends React.Component {
     PKD_ENDPOINT = "http://localhost:8000/pkd/";
 

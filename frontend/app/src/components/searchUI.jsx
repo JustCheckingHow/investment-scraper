@@ -145,7 +145,7 @@ export class SearchBar extends Component {
         console.log(background);
         return (
             <SearchBarContainer>
-                <MDBNavbar className="fixed-top shadow-0" style={{ margin: "0 20%", color: "white" }}>
+                <MDBNavbar className="fixed-top shadow-0" style={{ padding: "0 20%", color: "white", backgroundColor: "#08080832" }}>
                     <MDBTypography variant='h1' className="h1-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                         MoneyMaker
                     </MDBTypography>

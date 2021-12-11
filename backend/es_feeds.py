@@ -1,6 +1,6 @@
 import glob
 import os
-from typing import Any, Dict, Iterable
+from typing import Any, Dict, Iterable, List
 
 import pandas as pd
 from dotenv.main import find_dotenv
@@ -115,6 +115,25 @@ def create_and_feed() -> Elasticsearch:
     es = create_es_instance()
     upload_datasets(es)
     return es
+
+
+def multiple_term_search(PKD: List[str]):
+    query = {
+        'query': {
+            'query_string': {
+                'query': " OR ".join([f"({q})" for q in PKD]),
+                "fields": ["description"]
+            }
+        },
+        "highlight": {
+            "fields": {
+                "description": {}  # highlight here
+            }
+        }
+    }
+
+    results = es.search(index='test', body=query)
+    return results['hits']['hits']
 
 
 def simple_query(es: Elasticsearch, PKD: str):

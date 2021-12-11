@@ -46,7 +46,7 @@ export class SearchBar extends Component {
         return (
             <SearchBarContainer>
                 <MDBNavbar className="fixed-top shadow-0" style={{ margin: "0 20%", color: "white" }}>
-                    <MDBTypography variant='h1' className="h1-responsive">
+                    <MDBTypography variant='h1' className="h1-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                         MoneyMaker
                     </MDBTypography>
                 </MDBNavbar>
@@ -60,7 +60,7 @@ export class SearchBar extends Component {
                             placeholder="NIP/Regon/Nazwa firmy lub kod PKD"
                             className="w-100 pr-2 my-auto"
                             style={{ backgroundColor: "white" }} />
-                        <Button className="ml-3" style={{ backgroundColor: "#8B2635" }} variant="contained" color="primary" disableElevation>
+                        <Button className="ml-3" style={{ backgroundColor: "#8B2635", fontFamily: "'Montserrat', sans-serif" }} variant="contained" color="primary" disableElevation>
                             Search
                         </Button>
                     </MDBCol>

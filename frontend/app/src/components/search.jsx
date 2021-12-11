@@ -19,13 +19,13 @@ class Tile extends React.Component {
                     >
                         <MDBRow className={"ml-3 mr-3"}>
                             <MDBCol className={"col-8 ml-0 pl-0 mt-3"}>
-                                <MDBTypography tag="h4" variant="h4-responsive">
+                                <MDBTypography tag="h4" variant="h4-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                                     <b>{this.props.tile.name}</b>
                                     <br />
                                 </MDBTypography>
                             </MDBCol>
                             <MDBCol className={"col-4 mt-3"} style={{ textAlign: "right" }}>
-                                <MDBTypography tag="h6" variant="h6-responsive">
+                                <MDBTypography tag="h6" variant="h6-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                                     <p className="text-muted mb-0">
                                         Cośtam
                                     </p>
@@ -34,14 +34,14 @@ class Tile extends React.Component {
                         </MDBRow>
                         <MDBRow className={"ml-3 my-2"}>
                             <MDBCol className={"col-xl-8 ml-0 pl-0"}>
-                                <MDBTypography tag="h6" variant="h6-responsive">
+                                <MDBTypography tag="h6" variant="h6-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                                     <p className="text-muted mb-0">
                                         Description
                                     </p>
                                 </MDBTypography>
                             </MDBCol>
                         </MDBRow>
-                        <MDBRow className="align-items-end flex-grow-1 ml-3 mr-3 pt-2 pb-2 border-top">
+                        <MDBRow className="align-items-end flex-grow-1 ml-3 mr-3 pt-2 pb-2 border-top" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                             {/* {this.getInfoTiles("ProvisionCosts")} */}
                             Badge
                         </MDBRow>
@@ -107,7 +107,7 @@ function getInfoTiles() {
                 <MDBCardBody>
                     <MDBRow>
                         <MDBCol>
-                            <MDBTypography tag="h2" variant="h2-responsive">
+                            <MDBTypography tag="h2" variant="h2-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                                 <p className="mb-0">
                                     MoneyMaker
                                 </p>
@@ -116,10 +116,13 @@ function getInfoTiles() {
                     </MDBRow>
                     <MDBRow>
                         <MDBCol>
-                            <MDBTypography tag="h6" variant="h6-responsive" style={{ lineHeight: "1.6" }}>
+                            <MDBTypography tag="h6" variant="h6-responsive" style={{ lineHeight: "1.6", fontFamily: "'Montserrat', sans-serif" }}>
                                 MoneyMaker to innowacyjne rozwiązanie dla przedsiębiorców które w inteligentny sposób pomoże Ci odnaleźć okazje do inwestycji i dofinansowań dostosowane do Twojej firmy.
                             </MDBTypography>
-                            <MDBTypography tag="h6" variant="h6-responsive" style={{ lineHeight: "1.6" }}>
+                            <MDBTypography
+                                tag="h6"
+                                variant="h6-responsive"
+                                style={{ lineHeight: "1.6", fontFamily: "'Montserrat', sans-serif" }}>
                                 Zacznij od wpisania nazwy, numeru REGON, NIPu, albo kategorii PKD w ramach której chcesz znaleźć okazje do inwestycji.
                             </MDBTypography>
                         </MDBCol>
@@ -132,7 +135,7 @@ function getInfoTiles() {
                 <MDBCardBody>
                     <MDBRow>
                         <MDBCol>
-                            <MDBTypography tag="h2" variant="h2-responsive">
+                            <MDBTypography tag="h2" variant="h2-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                                 <p className="mb-0">
                                     3W
                                 </p>
@@ -141,20 +144,25 @@ function getInfoTiles() {
                     </MDBRow>
                     <MDBRow>
                         <MDBCol>
-                            <MDBTypography tag="h6" variant="h6-responsive">
+                            <MDBTypography tag="h6" variant="h6-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                                 Dowiedz się więcej o inwestycjach w obszarze 3W: woda - wodór - węgiel.
                             </MDBTypography>
-                            <ul>
-                                <li>
-                                    <a href="https://www.bgk.pl/3w/">Co to jest?</a>
-                                </li>
-                                <li>
-                                    <a href="https://300gospodarka.pl/material-partnera/woda-wodor-i-wegiel-to-strategiczne-zasoby-przyszlosci-czym-jest-idea-3w">3W jako zasoby przyszłości</a>
-                                </li>
-                                <li>
-                                    <a href="https://www.izolacje.com.pl/artykul/wydarzenia/258301,3w-woda-wodor-wegiel-nowa-inicjatywa-bgk">Wspólny cel biznesu, nauki i administracji</a>
-                                </li>
-                            </ul>
+
+                            <MDBTypography tag="h6" variant="h6-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+
+                                <ul>
+                                    <li>
+                                        <a href="https://www.bgk.pl/3w/">Co to jest?</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://300gospodarka.pl/material-partnera/woda-wodor-i-wegiel-to-strategiczne-zasoby-przyszlosci-czym-jest-idea-3w">3W jako zasoby przyszłości</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.izolacje.com.pl/artykul/wydarzenia/258301,3w-woda-wodor-wegiel-nowa-inicjatywa-bgk">Wspólny cel biznesu, nauki i administracji</a>
+                                    </li>
+                                </ul>
+                            </MDBTypography>
+
                         </MDBCol>
                     </MDBRow>
                 </MDBCardBody>

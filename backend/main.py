@@ -1,13 +1,23 @@
 from fastapi import FastAPI
 import re
+import redis
+import pickle
+import json
 
 pkd_re = re.compile("PKD [0-9]{2}\.[0-9]{2}\.Z")
 
 app = FastAPI()
 
+@app.on_event("startup")
+async def startup_event():
+    global r
+    r = redis.Redis(host='backend_redis_1', port=6379, db=0)
+
+    with open("pkds.pkl", "rb") as f:
+        r.set('pkds', json.dumps(pickle.load(f)).encode())
+
 @app.get("/search/{value}")
 def search(value: str):
-    
     if len(value) == 9:
         # NIP
         pass
@@ -26,3 +36,24 @@ def search(value: str):
     }
 
     #return {"item_id": item_id, "q": q}
+
+
+@app.get("/pkd/{value}")
+def pkd(value: str):
+    print(value)
+    value = value.lower()
+    global r
+    pkds = json.loads(r.get('pkds').decode())
+    propositions = []
+    for item in pkds:
+        if value in item[0].lower():
+            propositions.append(item)
+
+    if len(propositions) != 0:
+        return propositions
+
+    for item in pkds:
+        if value in item[1].lower():
+            propositions.append(item)
+
+    return propositions

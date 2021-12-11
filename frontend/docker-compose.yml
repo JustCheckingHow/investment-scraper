@@ -3,6 +3,13 @@ services:
   parcel:
     build: .
     volumes:
-      - .:/app
+      - ./app:/app
     ports:
       - "3000:3000"
+      
+  mock-api:
+    build: json-mock-api/.
+    volumes:
+      - ./json-mock-api:/app
+    ports:
+      - "3001:3000"

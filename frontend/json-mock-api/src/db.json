@@ -1,0 +1,14 @@
+{
+    "search": [
+        {
+            "name": "name",
+            "description": "description",
+            "url": "#"
+        },
+        {
+            "name": "name2",
+            "description": "description2",
+            "url": "#"
+        }
+    ]
+}

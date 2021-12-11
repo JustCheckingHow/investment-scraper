@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/css": "^11.5.0",
+    "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",
     "@mui/material": "^5.2.3",
     "@testing-library/jest-dom": "^5.16.1",
@@ -19,7 +21,7 @@
   },
   "scripts": {
     "clean": "rm dist/bundle.js",
-    "start": "parcel public/index.html --port 3000",
+    "start": "parcel public/index.html --port 3000 --host 0.0.0.0",
     "build-prod": "parcel build --public-url react_app/ public/index.html"
   },
   "eslintConfig": {

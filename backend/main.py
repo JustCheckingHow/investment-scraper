@@ -68,7 +68,7 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup_event():
     global r
-    r = redis.Redis(host='backend_redis_1', port=6379, db=0)
+    r = redis.Redis(host='investment_redis_1', port=6379, db=0)
 
     with open("pkds.pkl", "rb") as f:
         r.set('pkds', json.dumps(pickle.load(f)).encode())

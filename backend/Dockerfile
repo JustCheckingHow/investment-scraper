@@ -12,8 +12,10 @@ RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
 WORKDIR /app
 COPY requirements.txt /app
 RUN pip install -r requirements.txt
-
 COPY *.py .env /app/
+COPY data/*.pkl /app/
+ENV PATH=$PATH:/app
+RUN cp ../chromedriver /app/
 
 CMD ["uvicorn",  "main:app", "--reload", "--host", "0.0.0.0"]
-ENTRYPOINT [ "python", "main.py" ]
+#ENTRYPOINT [ "python", "main.py" ]

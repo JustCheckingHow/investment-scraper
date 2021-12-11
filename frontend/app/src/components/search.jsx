@@ -27,8 +27,7 @@ class Tile extends React.Component {
                             </MDBCol>
                             <MDBCol className={"col-4 mt-3"} style={{ textAlign: "right" }}>
                                 <MDBTypography tag="h6" variant="h6-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                                    <p className="text-muted mb-0">
-                                        Cośtam
+                                    <p className="text-muted mb-0" dangerouslySetInnerHTML={{__html: this.props.tile.source }}>
                                     </p>
                                 </MDBTypography>
                             </MDBCol>
@@ -36,8 +35,7 @@ class Tile extends React.Component {
                         <MDBRow className={"ml-3 my-2"}>
                             <MDBCol className={"col-xl-8 ml-0 pl-0"}>
                                 <MDBTypography tag="h6" variant="h6-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                                    <p className="text-muted mb-0">
-                                        Description
+                                    <p className="text-muted mb-0" dangerouslySetInnerHTML={{__html: this.props.tile.summary }}>
                                     </p>
                                 </MDBTypography>
                             </MDBCol>

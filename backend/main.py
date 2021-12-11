@@ -1,8 +1,7 @@
 from typing import Dict, List
 from elasticsearch.client import Elasticsearch
-from backend.es_feeds import multiple_term_search
 from fastapi import FastAPI, HTTPException
-from es_feeds import simple_query, create_and_feed
+from es_feeds import simple_query, create_and_feed, multiple_term_search
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import re

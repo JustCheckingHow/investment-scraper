@@ -52,7 +52,9 @@ class Tile extends React.Component {
     }
 }
 
-class Search extends React.Component {
+class Search extends React.Component {   
+    PKD_ENDPOINT = "http://localhost:8000/pkd/";
+
     constructor(props) {
         super(props);
         this.state = {
@@ -78,7 +80,7 @@ class Search extends React.Component {
     render() {
         return (
             <div>
-                <SearchBar onSearch={this.loadTiles} />
+                <SearchBar PkdEndpoint={this.PKD_ENDPOINT} onSearch={this.loadTiles} />
                 <div style={{ margin: "0 20%" }} >
                     <MDBRow >
                         {/* <MDBCol className="col-3 m-0 p-0" > */}

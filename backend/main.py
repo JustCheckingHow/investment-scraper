@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import re
 import redis
 import pickle
@@ -7,6 +8,14 @@ import json
 pkd_re = re.compile("PKD [0-9]{2}\.[0-9]{2}\.Z")
 
 app = FastAPI()
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.on_event("startup")
 async def startup_event():
@@ -57,3 +66,7 @@ def pkd(value: str):
             propositions.append(item)
 
     return propositions
+
+@app.options("/")
+def options(request):
+    return {}

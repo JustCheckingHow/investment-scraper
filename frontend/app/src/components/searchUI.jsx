@@ -28,7 +28,6 @@ export class SearchBarContainer extends Component {
                 flexDirection: "column",
                 padding: "0 20%"
             }}>
-
                 {this.props.children}
             </div>
         )
@@ -58,7 +57,7 @@ export class SearchBar extends Component {
                     <MDBCol className="d-flex w-100">
                         <OutlinedInput
                             onKeyPress={this.onKeyPress}
-                            placeholder="NIP/Regon/Nazwa firmy"
+                            placeholder="NIP/Regon/Nazwa firmy lub kod PKD"
                             className="w-100 pr-2 my-auto"
                             style={{ backgroundColor: "white" }} />
                         <Button className="ml-3" style={{ backgroundColor: "#8B2635" }} variant="contained" color="primary" disableElevation>

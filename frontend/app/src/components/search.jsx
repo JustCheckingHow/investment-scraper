@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBCol, MDBRow, MDBCard, MDBTypography, MDBCardBody } from "mdb-react-ui-kit";
+import { MDBCol, MDBRow, MDBCard, MDBTypography, MDBCardBody, MDBListGroup, MDBListGroupItem } from "mdb-react-ui-kit";
 import { Logo, SearchBar } from './searchUI';
 
 class Tile extends React.Component {
@@ -81,9 +81,9 @@ class Search extends React.Component {
                 <SearchBar onSearch={this.loadTiles} />
                 <div style={{ margin: "0 20%" }} >
                     <MDBRow >
-                        <MDBCol className="col-3 m-0 p-0" >
-                        </MDBCol>
-                        <MDBCol className="col-9 m-0 p-2" style={{ height: "fit-content" }} >
+                        {/* <MDBCol className="col-3 m-0 p-0" > */}
+                        {/* </MDBCol> */}
+                        <MDBCol className="col-12 m-0 p-2" style={{ height: "fit-content" }} >
                             {
                                 this.state.tiles.map((tile, index) =>
                                     <Tile key={index} tile={tile} />
@@ -134,7 +134,7 @@ function getInfoTiles() {
                         <MDBCol>
                             <MDBTypography tag="h2" variant="h2-responsive">
                                 <p className="mb-0">
-                                    MoneyMaker
+                                    3W
                                 </p>
                             </MDBTypography>
                         </MDBCol>
@@ -142,10 +142,19 @@ function getInfoTiles() {
                     <MDBRow>
                         <MDBCol>
                             <MDBTypography tag="h6" variant="h6-responsive">
-                                <p className="text-muted mb-0">
-                                    Description
-                                </p>
+                                Dowiedz się więcej o inwestycjach w obszarze 3W: woda - wodór - węgiel.
                             </MDBTypography>
+                            <ul>
+                                <li>
+                                    <a href="https://www.bgk.pl/3w/">Co to jest?</a>
+                                </li>
+                                <li>
+                                    <a href="https://300gospodarka.pl/material-partnera/woda-wodor-i-wegiel-to-strategiczne-zasoby-przyszlosci-czym-jest-idea-3w">3W jako zasoby przyszłości</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.izolacje.com.pl/artykul/wydarzenia/258301,3w-woda-wodor-wegiel-nowa-inicjatywa-bgk">Wspólny cel biznesu, nauki i administracji</a>
+                                </li>
+                            </ul>
                         </MDBCol>
                     </MDBRow>
                 </MDBCardBody>

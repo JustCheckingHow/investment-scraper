@@ -1,3 +1,4 @@
+import pkgutil
 from typing import Dict, List
 from elasticsearch.client import Elasticsearch
 from fastapi import FastAPI, HTTPException
@@ -37,18 +38,24 @@ def search(value: str):
     if len(value) == 9:
         # NIP
         # primary PKD
-        query = get_info_by_nip(value)
+        primary_pkd, secondary_pkd = get_info_by_nip(value)
+        query = [*primary_pkd, *secondary_pkd]
     elif len(value) == 10:
         # REGON 10
-        query = get_info_by_regon(value)
-    #  pkd_re.match(value) != None:
+        primary_pkd, secondary_pkd = get_info_by_regon(value)
+        query = [*primary_pkd, *secondary_pkd]
     else:
         # PKD
-        query = [[value]]
+        # m = pkd_re.match(value)
+        m = value.split("-")
+        if len(m) < 2:
+            raise HTTPException(status_code=304, detail="Invalid PKD request")
+        query = m[1]
 
-    # query = query
-    # results = simple_query(es, query)
-    results = multiple_term_search(es, query)
+    if isinstance(query, list):
+        results = simple_query(es, query)
+    else:
+        results = multiple_term_search(es, query)
     results = transform_es_search_results(results)
     return {
         "search_results": results,

@@ -52,7 +52,7 @@ def search(value: str):
             raise HTTPException(status_code=304, detail="Invalid PKD request")
         query = m[1]
 
-    if isinstance(query, list):
+    if not isinstance(query, list):
         results = simple_query(es, query)
     else:
         results = multiple_term_search(es, query)

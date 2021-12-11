@@ -52,7 +52,7 @@ class Tile extends React.Component {
     }
 }
 
-class Search extends React.Component {   
+class Search extends React.Component {
     PKD_ENDPOINT = "http://localhost:8000/pkd/";
 
     constructor(props) {
@@ -82,9 +82,24 @@ class Search extends React.Component {
             <div>
                 <SearchBar PkdEndpoint={this.PKD_ENDPOINT} onSearch={this.loadTiles} />
                 <div style={{ margin: "0 20%" }} >
+                    <MDBRow className="mt-3" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                        <MDBCol>
+                            <MDBRow>
+                                
+                                <MDBCol className="col-6">
+                                    <MDBTypography tag="h3" variant="h3-responsive" style={{ fontFamily: "'Montserrat', sans-serif", textAlign: "right" }}>
+                                        <strong>Nazwa firmy</strong>
+                                    </MDBTypography>
+                                </MDBCol>
+                                <MDBCol className="col-6">
+                                    <MDBTypography tag="h3" variant="h3-responsive" style={{ fontFamily: "'Montserrat', sans-serif", textAlign: "right" }}>
+                                        <strong>Nazwa firmy</strong>
+                                    </MDBTypography>
+                                </MDBCol>
+                            </MDBRow>
+                        </MDBCol>
+                    </MDBRow>
                     <MDBRow >
-                        {/* <MDBCol className="col-3 m-0 p-0" > */}
-                        {/* </MDBCol> */}
                         <MDBCol className="col-12 m-0 p-2" style={{ height: "fit-content" }} >
                             {
                                 this.state.tiles.map((tile, index) =>

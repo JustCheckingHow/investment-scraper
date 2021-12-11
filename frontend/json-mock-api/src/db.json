@@ -10,5 +10,18 @@
             "description": "description2",
             "url": "#"
         }
-    ]
+    ],
+    "company_info": {
+        "parsed_query": [
+            "1",
+            "2",
+            "3"
+        ],
+        "additional_info": {
+            "regon": "123456789",
+            "nip": "123456789",
+            "name": "name",
+            "type_of_entity": "type_of_entity"
+        }
+    }
 }

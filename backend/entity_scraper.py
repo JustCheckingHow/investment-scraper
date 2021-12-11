@@ -22,7 +22,7 @@ def get_info(path):
     options.add_argument('--no-sandbox')
 
     driver = webdriver.Chrome(
-        executable_path="/opt/homebrew/bin/chromedriver", options=options)
+        executable_path="/app/chromedriver", options=options)
     driver.get('https://wyszukiwarkaregon.stat.gov.pl/appBIR/index.aspx')
     time.sleep(1)
     input_field = driver.find_element(By.XPATH, path)

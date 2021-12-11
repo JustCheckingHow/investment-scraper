@@ -10,7 +10,7 @@ export class Logo extends Component {
             <div id="logo-img" className="logo d-flex">
                 <img className="mx-auto mt-auto"
                     style={{ objectFit: 'contain', width: '400px', height: '100%' }}
-                    src="https://lh3.googleusercontent.com/proxy/tanfFUVIvAm98j7sKpu62RMpsM1Yq1sVj8nQNBLAYtdd8ucSmFF8PFBZ9dyMXmFQVHJGhLnJuayY2WHf314qoHSg_o4_hByxDdByzsh-XRYS6S-8GVkdX_ED76e7F6aIP_cAfMtgSh8" alt="logo" />
+                    src="https://static.polityka.pl/_resource/res/path/38/e6/38e656cd-7edd-4822-ab12-dea01a667133" alt="logo" />
             </div>
         );
     }

@@ -1,3 +1,4 @@
 frontend/**/dist
 frontend/**/.parcel-cache
+**/__pycache__
 frontend/**/node_modules

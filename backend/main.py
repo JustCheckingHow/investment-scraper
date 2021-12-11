@@ -2,7 +2,15 @@ from typing import Dict, List
 from elasticsearch.client import Elasticsearch
 from fastapi import FastAPI, HTTPException
 from es_feeds import simple_query, create_and_feed
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import re
+import redis
+import pickle
+import json
+import finders
+from entity_scraper import get_info_by_regon, get_info_by_nip
+
 
 pkd_re = re.compile("PKD [0-9]{2}\.[0-9]{2}\.Z")
 
@@ -26,25 +34,65 @@ def transform_es_search_results(es_result):
 
 @app.get("/search/{value}")
 def search(value: str):
-    PKD_query = value
-    # if len(value) == 9:
-    #     # NIP
-    #     pass
-    # elif len(value) == 10:
-    #     # REGON 10
-    #     pass
-    # elif len(value) == 13:
-    #     # REGON 13
-    #     pass
-    # elif pkd_re.match(value) != None:
-    #     # PKD
-    #     pass
-    # else:
-    #     raise HTTPException(status_code=304, detail="Unknown input code!")
+    print(value)
+    if len(value) == 9:
+        # NIP
+        # primary PKD
+        query = get_info_by_nip(value)
+    elif len(value) == 10:
+        # REGON 10
+        query = get_info_by_regon(value)
+    elif pkd_re.match(value) != None:
+        # PKD
+        query = [[value]]
 
-    results = simple_query(es, PKD_query)
+    query = query[0][0]
+    if value.startswith("PKD"):
+        return finders.find_by_pkd(value)
+
+    results = simple_query(es, query)
     results = transform_es_search_results(results)
     return {
         "search_results": results,
-        "parsedQuery": PKD_query
+        "parsedQuery": query
     }
+
+
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.on_event("startup")
+async def startup_event():
+    global r
+    r = redis.Redis(host='backend_redis_1', port=6379, db=0)
+
+    with open("pkds.pkl", "rb") as f:
+        r.set('pkds', json.dumps(pickle.load(f)).encode())
+
+
+@app.get("/pkd/{value}")
+def pkd(value: str):
+    print(value)
+    value = value.lower()
+    global r
+    pkds = json.loads(r.get('pkds').decode())
+    propositions = []
+    for item in pkds:
+        if value in item[0].lower():
+            propositions.append(item)
+
+    if len(propositions) != 0:
+        return propositions
+
+    for item in pkds:
+        if value in item[1].lower():
+            propositions.append(item)
+
+    return propositions

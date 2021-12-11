@@ -1,15 +1,11 @@
 version: "3.3"
 
 services:
-  selenium:
-    image: selenium/standalone-firefox
-    ports:
-      - "4444:4444"
-    shm_size: "2g"
-
   backend:
     build: .
+    volumes:
+      - .:/app
     ports:
-      - "8000:8000" 
-
-    
+      - "8000:8000"
+  redis:
+    image: redis

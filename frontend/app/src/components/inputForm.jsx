@@ -54,7 +54,6 @@ class PKDSearch extends SearchBar {
                             className="form-control"
                             onKeyPress={this.onKeyPress}
                             value={this.state.input}
-
                             onChange={this.onChange} />
                     </MDBCol>
                 </MDBRow>
@@ -77,14 +76,40 @@ class InputForm extends React.Component {
 
     constructor(props) {
         super(props);
+        this.inputRef = React.createRef();
         this.state = {
             pkds: [],
+            url: []
         }
+    }
+
+    onKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            this.addURL(this.inputRef.current.value);
+            return;
+        }
+
+    }
+    
+    addURL = (url) => {
+        this.setState({
+            url: [...this.state.url, url],
+            pkds: this.state.pkds
+        })
+    }
+
+    removeURL = (e) => {
+        var url = e.target.innerText;
+        this.setState({
+            url: this.state.url.filter(u => u !== url),
+            pkds: this.state.pkds
+        })
     }
 
     addPKD = (value) => {
         this.setState({
-            pkds: [...this.state.pkds, value]
+            pkds: [...this.state.pkds, value],
+            url: this.state.url
         });
     }
 
@@ -92,7 +117,8 @@ class InputForm extends React.Component {
         var value = e.target.innerText;
         var newPKDs = this.state.pkds.filter(pkd => pkd !== value);
         this.setState({
-            pkds: newPKDs
+            pkds: newPKDs,
+            url: this.state.url
         });
     }
 
@@ -105,7 +131,7 @@ class InputForm extends React.Component {
                         Dodaj nowy wpis
                     </MDBTypography>
                 </MDBNavbar>
-                <MDBRow style={{ marginTop: "15%" }}>
+                <MDBRow style={{ marginTop: "10%", marginBottom: "10%" }}>
                     <MDBCol md="12">
                         <MDBCard>
                             <MDBCardBody>
@@ -119,6 +145,14 @@ class InputForm extends React.Component {
                                             </MDBListGroupItem>
                                             <MDBListGroupItem style={{ borderWidth: "0" }}>
                                                 <input type="text" className="form-control" onChange={(e) => { this.setState({ input: e.target.value }) }} />
+                                            </MDBListGroupItem>
+                                            <MDBListGroupItem style={{ borderWidth: "0" }}>
+                                                <MDBTypography variant='h5' className="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                                                    Kwota:
+                                                </MDBTypography>
+                                            </MDBListGroupItem>
+                                            <MDBListGroupItem style={{ borderWidth: "0" }}>
+                                                <input type="number" className="form-control" onChange={(e) => { this.setState({ input: e.target.value }) }} />
                                             </MDBListGroupItem>
                                             <MDBListGroupItem style={{ borderWidth: "0" }}>
                                                 <MDBTypography variant='h5' className="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
@@ -174,8 +208,6 @@ class InputForm extends React.Component {
                                                 </MDBTypography>
                                             </MDBListGroupItem>
                                             <MDBListGroupItem className="w-100" style={{ borderWidth: "0" }}>
-                                                {/* <input type="text" className="w-100" onChange={(e) => { this.setState({ input: e.target.value }) }} />
-                                                 */}
                                                 <PKDSearch PkdEndpoint={this.PKD_ENDPOINT} callback={this.addPKD} />
                                             </MDBListGroupItem>
 
@@ -183,7 +215,7 @@ class InputForm extends React.Component {
                                                 <div className="w-100 h-100 border" style={{ backgroundColor: "white" }}>
                                                     {this.state.pkds.map((pkd, index) => {
                                                         return (
-                                                            <div onClick={this.removePKD} className="pkd-container hoverable-row" key={"pkd-container-"+index}>
+                                                            <div onClick={this.removePKD} className="pkd-container hoverable-row" key={"pkd-container-" + index}>
                                                                 <div className="pkd-name">{pkd}</div>
                                                             </div>
                                                         )
@@ -200,6 +232,32 @@ class InputForm extends React.Component {
                                         </MDBListGroupItem>
                                         <MDBListGroupItem style={{ borderWidth: "0" }}>
                                             <textarea className="form-control" rows="5" onChange={(e) => { this.setState({ input: e.target.value }) }}></textarea>
+                                        </MDBListGroupItem>
+                                    </MDBRow>
+                                    <MDBRow className="ml-0">
+                                        <MDBListGroupItem style={{ borderWidth: "0" }}>
+                                            <MDBTypography variant='h5' className="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                                                Adresy dokumentów:
+                                            </MDBTypography>
+                                        </MDBListGroupItem>
+                                        <MDBListGroupItem className="w-100" style={{ borderWidth: "0" }}>
+                                            <input type="text"
+                                                ref={this.inputRef}
+                                                className="form-control"
+                                                onKeyPress={this.onKeyPress}
+                                                />
+                                        </MDBListGroupItem>
+
+                                        <MDBListGroupItem style={{ borderWidth: "0", height: "100px" }}>
+                                            <div className="w-100 h-100 border" style={{ backgroundColor: "white" }}>
+                                                {this.state.url.map((pkd, index) => {
+                                                    return (
+                                                        <div onClick={this.removeURL} className="pkd-container hoverable-row" key={"pkd-container-" + index}>
+                                                            <div className="pkd-name">{pkd}</div>
+                                                        </div>
+                                                    )
+                                                })}
+                                            </div>
                                         </MDBListGroupItem>
                                     </MDBRow>
                                 </MDBListGroup>

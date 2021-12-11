@@ -10,9 +10,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
 
 WORKDIR /app
+COPY *.py .env /app/
 COPY requirements.txt /app
 RUN pip install -r requirements.txt
-COPY *.py .env /app/
 COPY data/*.pkl /app/
 ENV PATH=$PATH:/app
 RUN cp ../chromedriver /app/

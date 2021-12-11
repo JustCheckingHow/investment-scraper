@@ -3,7 +3,7 @@ from typing import Dict, List
 from elasticsearch.client import Elasticsearch
 from fastapi import FastAPI, HTTPException
 from es_feeds import simple_query, create_and_feed, multiple_term_search
-from fastapi import FastAPI
+from fastapi import FastAPI#, Form
 from fastapi.middleware.cors import CORSMiddleware
 import re
 import redis
@@ -36,12 +36,12 @@ def transform_es_search_results(es_result):
 def search(value: str):
     print(value)
     additional_info = {}
-    if len(value) == 9:
+    if len(value) == 10:
         # NIP
         # primary PKD
         primary_pkd, secondary_pkd, additional_info = get_info_by_nip(value)
         query = [*primary_pkd, *secondary_pkd]
-    elif len(value) == 10:
+    elif len(value) == 9 or len(value) == 14:
         # REGON 10
         primary_pkd, secondary_pkd, additional_info = get_info_by_regon(value)
         query = [*primary_pkd, *secondary_pkd]
@@ -103,3 +103,15 @@ def pkd(value: str):
             propositions.append(item)
 
     return propositions
+
+#@app.get("/submit_financing")
+#async def submit_financing(
+#            name: str = Form(...),
+#            description: str = Form(...),
+#            price: str = Form(...),
+#            PKD: str = Form(...),
+#            W3: str = Form(...),
+#            company_size: str = Form(...),
+#            financing_type: str = Form(...)):
+#    pass
+#    

@@ -1,5 +1,6 @@
 from typing import Dict, List
 from elasticsearch.client import Elasticsearch
+from backend.es_feeds import multiple_term_search
 from fastapi import FastAPI, HTTPException
 from es_feeds import simple_query, create_and_feed
 from fastapi import FastAPI
@@ -46,8 +47,9 @@ def search(value: str):
         # PKD
         query = [[value]]
 
-    query = query[0][0]
-    results = simple_query(es, query)
+    # query = query
+    # results = simple_query(es, query)
+    results = multiple_term_search(es, query)
     results = transform_es_search_results(results)
     return {
         "search_results": results,

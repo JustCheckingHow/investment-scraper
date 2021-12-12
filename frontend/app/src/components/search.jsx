@@ -1,6 +1,9 @@
 import React from 'react';
 import { MDBCol, MDBRow, MDBCard, MDBTypography, MDBCardBody, MDBListGroup, MDBListGroupItem } from "mdb-react-ui-kit";
 import { Logo, SearchBar, Tile, TilePlaceholder } from './searchUI';
+import { CompanyTile } from './companyTile';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 class Search extends React.Component {
     PKD_ENDPOINT = "http://localhost:8000/pkd/";
@@ -12,8 +15,10 @@ class Search extends React.Component {
             showFilters: false,
             tiles: [
             ],
+            companies: [],
             companyInfo: {},
             showCompany: false,
+            currentTab: 0
         };
     }
 
@@ -28,6 +33,7 @@ class Search extends React.Component {
                 console.log(data['additional_info']);
                 this.setState({
                     tiles: data['search_results'],
+                    companies: data['companies'],
                     companyInfo: data['additional_info'],
                     showCompany: showCompany,
                     ready: true,
@@ -35,21 +41,64 @@ class Search extends React.Component {
             });
     }
 
+    switchTab = () => {
+        var newTab = this.state.currentTab === 1 ? 0 : 1;
+        this.setState({
+            ...this.state,
+            currentTab: newTab
+        });
+        console.log(this.state);
+    }
+
+    getButtons = () => {
+        var inactiveStyle = { color: "#153243", borderColor: "#153243" }
+        var activeStyle = { color: "white", borderColor: "#153243", backgroundColor: "#153243" }
+
+        var buttonStyles = [inactiveStyle, inactiveStyle];
+        buttonStyles[this.state.currentTab] = activeStyle;
+
+        if (this.state.tiles.length > 0) {
+            return (
+                <MDBRow className="d-flex mt-3 ml-0" style={{ flexDirection: "row" }}>
+                    <ButtonGroup variant="outlined" aria-label="outlined button group">
+                        <Button onClick={this.switchTab} style={buttonStyles[0]}>Propozycje inwestycyjne</Button>
+                        <Button onClick={this.switchTab} style={buttonStyles[1]}>Okazje współpracy</Button>
+                    </ButtonGroup>
+                </MDBRow>
+            )
+        }
+    }
+
+
     render() {
+        var source;
+        var TileClass;
+        if (this.state.currentTab === 0) {
+            source = this.state.tiles;
+            TileClass = Tile
+        }
+        else {
+            source = this.state.companies;
+            TileClass = CompanyTile
+        }
+
         return (
             <div>
                 <SearchBar PkdEndpoint={this.PKD_ENDPOINT} onSearch={this.loadTiles} />
                 <div style={{ margin: "0 20%" }} >
                     {this.renderCompany()}
-                    <MDBRow >
+                    <MDBRow>
                         <MDBCol className="col-12 m-0 p-2" style={{ height: "fit-content" }} >
-                            <TilePlaceholder ready={this.state.ready}>
-                                {
-                                    this.state.tiles.map((tile, index) =>
-                                        <Tile key={index} tile={tile} />
-                                    )
-                                }
-                            </TilePlaceholder>
+                            {this.getButtons()}
+                            <MDBRow>
+                                <TilePlaceholder ready={this.state.ready}>
+                                    {
+                                        source.map((tile, index) =>
+                                            <TileClass key={index} tile={tile} />
+                                        )
+                                    }
+                                </TilePlaceholder>
+                            </MDBRow>
                         </MDBCol>
                     </MDBRow>
                     {getInfoTiles()}

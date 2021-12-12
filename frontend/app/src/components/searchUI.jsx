@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBInput, MDBRow, MDBCol, MDBNavbar, MDBTypography } from "mdb-react-ui-kit";
+import { MDBIcon, MDBRow, MDBCol, MDBNavbar, MDBTypography } from "mdb-react-ui-kit";
 import Button from '@mui/material/Button';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import ReactPlaceholder from "react-placeholder";
@@ -28,7 +28,7 @@ export class TilePlaceholder extends Component {
                 showLoadingAnimation={true}
                 type="media"
                 rows={5}
-                >
+            >
                 {this.props.children}
             </ReactPlaceholder>);
     }
@@ -39,48 +39,91 @@ export class Tile extends React.Component {
         super(props);
     }
 
+    getDocumentTile(url) {
+        return (
+            <MDBCol className={"p-0 col-6"}>
+                {/* Round pill */}
+                <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                    <div className="rounded-pill p-1 m-2" style={{
+                        backgroundColor: "rgb(237, 237, 237)",
+                        textAlign: "center",
+                        color: "rgb(154, 146, 146)",
+                        border: "1px solid rgb(154, 146, 146)"
+                    }}>
+                        <MDBRow className="m-0 p-0">
+                            <MDBCol className="col-5 m-0 p-0 pl-2 d-flex">
+                                <img
+                                    style={{ width: "16px", height: "16px" }}
+                                    className="ml-auto mr-3 my-auto"
+                                    src="https://img.icons8.com/ios/50/000000/document--v1.png" />
+                            </MDBCol>
+                            <MDBCol className="col-7 m-0 p-0" style={{ textAlign: "left" }}>
+                                {url}
+                            </MDBCol>
+                        </MDBRow>
+                    </div>
+                </a>
+
+            </MDBCol>
+        );
+    }
+
+    getMoney = () => {
+        if(this.props.tile.money.length == 0)
+            return null;
+
+        return (
+            <>
+                <MDBRow className={"mt-3 mx-3"} style={{ textAlign: "right" }}>
+                    <MDBTypography tag="h5" variant="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                        <p className="mb-0 mt-2">
+                            Cena
+                        </p>
+                    </MDBTypography>
+                </MDBRow>
+                <hr />
+            </>
+        )
+    }
+
     render() {
         console.log(this.props.tile);
         return (
-            <a href={this.props.tile.URL} style={{ textDecoration: "none" }} >
-                <MDBRow
-                    className={"my-3 ml-0 mr-0 hover-shadow h-100 p-0 border"}
-                    style={{ color: "black", backgroundColor: "white" }}
+            <MDBRow
+                className={"mt-3 ml-0 mr-0 shadow-sm h-100 p-0 border"}
+                style={{ color: "black", backgroundColor: "white" }}
+            >
+                <MDBCol
+                    className="col-8"
+                    style={{ flexDirection: "column" }}
                 >
-                    <MDBCol
-                        style={{ flexDirection: "column" }}
-                    >
-                        <MDBRow className={"ml-3 mr-3"}>
-                            <MDBCol className={"col-8 ml-0 pl-0 mt-3"}>
-                                <MDBTypography tag="h4" variant="h4-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                                    <b>{this.props.tile.name}</b>
-                                    <br />
-                                </MDBTypography>
-                            </MDBCol>
-                            <MDBCol className={"col-4 mt-3"} style={{ textAlign: "right" }}>
-                                <MDBTypography tag="h6" variant="h6-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                                    <p className="text-muted mb-0">
-                                        Cośtam
-                                    </p>
-                                </MDBTypography>
-                            </MDBCol>
-                        </MDBRow>
-                        <MDBRow className={"ml-3 my-2"}>
-                            <MDBCol className={"col-xl-8 ml-0 pl-0"}>
-                                <MDBTypography tag="h6" variant="h6-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                                    <p className="text-muted mb-0">
-                                        Description
-                                    </p>
-                                </MDBTypography>
-                            </MDBCol>
-                        </MDBRow>
-                        <MDBRow className="align-items-end flex-grow-1 ml-3 mr-3 pt-2 pb-2 border-top" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                            {/* {this.getInfoTiles("ProvisionCosts")} */}
-                            Badge
-                        </MDBRow>
-                    </MDBCol>
-                </MDBRow>
-            </a>
+                    <MDBRow className={"ml-3 mr-3"}>
+                        <MDBCol className={"col-8 ml-0 pl-0 mt-3"}>
+                            <MDBTypography tag="h4" variant="h4-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                                <b>{this.props.tile.name}</b>
+                                <br />
+                            </MDBTypography>
+                        </MDBCol>
+                    </MDBRow>
+                    <MDBRow className={"ml-3 my-2"}>
+                        <MDBCol className={"col-xl-8 ml-0 pl-0"}>
+                            <MDBTypography tag="h6" variant="h6-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                                <p className="text-muted mb-0">
+                                    Description
+                                </p>
+                            </MDBTypography>
+                        </MDBCol>
+                    </MDBRow>
+                </MDBCol>
+                <MDBCol className="col-4">
+                    {this.getMoney()}
+                    <MDBRow className="my-3">
+                        {this.props.tile.documents.map((url) => {
+                            return this.getDocumentTile(url);
+                        })}
+                    </MDBRow>
+                </MDBCol>
+            </MDBRow>
         );
     }
 }
@@ -235,7 +278,7 @@ export class SearchBar extends Component {
             <SearchBarContainer>
                 <MDBNavbar className="fixed-top shadow-0" style={{ padding: "0 20%", color: "white", backgroundColor: "#08080832" }}>
                     <MDBTypography variant='h1' className="h1-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                        MoneyMaker
+                        FanDing
                     </MDBTypography>
                 </MDBNavbar>
                 <MDBRow className="h-100" style={{ marginTop: "5%" }} >

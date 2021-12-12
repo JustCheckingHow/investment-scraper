@@ -6,12 +6,24 @@
                 {
                     "name": "name",
                     "description": "description",
-                    "url": "#"
+                    "documents": [
+                        "wp.pl",
+                        "onet.pl",
+                        "gazeta.pl",
+                        "interia.pl"
+                    ],
+                    "money": "80 mln EUR"
                 },
                 {
                     "name": "name2",
                     "description": "description2",
-                    "url": "#"
+                    "documents": [
+                        "wp.pl",
+                        "onet.pl",
+                        "gazeta.pl",
+                        "interia.pl"
+                    ],
+                    "money": ""
                 }
             ],
             "additional_info": {

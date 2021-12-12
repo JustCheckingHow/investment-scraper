@@ -12,6 +12,7 @@ RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
 WORKDIR /app
 COPY *.py .env /app/
 COPY requirements.txt /app
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN pip install python-multipart multipart
 COPY data/*.pkl /app/

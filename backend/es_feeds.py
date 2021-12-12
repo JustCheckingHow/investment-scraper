@@ -198,9 +198,7 @@ def create_es_instance() -> Elasticsearch:
 
 def create_and_feed() -> Elasticsearch:
     es = create_es_instance()
-    # upload_datasets(es)
     return es
-
 
 def multiple_term_search(es: Elasticsearch, PKD: List[str]):
     query = {

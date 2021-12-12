@@ -73,14 +73,26 @@ class PKDSearch extends SearchBar {
 
 class InputForm extends React.Component {
     PKD_ENDPOINT = "http://localhost:8000/pkd/";
+	SUBMIT_ENDPOINT = "http://localhost:8000/submit_financing";
 
     constructor(props) {
         super(props);
         this.inputRef = React.createRef();
         this.state = {
             pkds: [],
-            url: []
+            url: [],
+			name: "aaa",
+			price_low: 0,
+			price_high: 0,
+			description: "aa",
+			W3: "a",
+			company_small: false,
+			company_medium: false,
+			company_big: false,
+			financing_type: "a",
         }
+
+		this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     onKeyPress = (e) => {
@@ -122,6 +134,33 @@ class InputForm extends React.Component {
         });
     }
 
+	async handleSubmit(event) {
+		console.log("handleSubmit");
+
+		var formdata = new FormData();
+		formdata.append("name", this.state.name);
+		formdata.append("description", this.state.description);
+		formdata.append("price_low", this.state.price_low);
+		formdata.append("price_high", this.state.price_high);
+		formdata.append("pkds", this.state.pkds);
+		formdata.append("W3", this.state.W3);
+		formdata.append("company_small", this.state.company_small);
+		formdata.append("company_medium", this.state.company_medium);
+		formdata.append("company_big", this.state.company_big);
+		formdata.append("financing_type", this.state.financing_type);
+		formdata.append("url", this.state.url);
+		
+		var requestOptions = {
+		  method: 'POST',
+		  body: formdata,
+		  redirect: 'follow'
+		};
+		fetch("http://localhost:8000/submit_financing", requestOptions)
+  			.then(response => response.text())
+  			.then(result => console.log(result))
+  			.catch(error => console.log('error', error));
+  	}
+
     render() {
         // Create form with name, description and price
         return (
@@ -144,7 +183,7 @@ class InputForm extends React.Component {
                                                 </MDBTypography>
                                             </MDBListGroupItem>
                                             <MDBListGroupItem style={{ borderWidth: "0" }}>
-                                                <input type="text" className="form-control" onChange={(e) => { this.setState({ input: e.target.value }) }} />
+                                                <input type="text" className="form-control" onChange={(e) => { this.setState({ name: e.target.value }) }} />
                                             </MDBListGroupItem>
                                             <MDBListGroupItem style={{ borderWidth: "0" }}>
                                                 <MDBTypography variant='h5' className="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
@@ -152,7 +191,7 @@ class InputForm extends React.Component {
                                                 </MDBTypography>
                                             </MDBListGroupItem>
                                             <MDBListGroupItem style={{ borderWidth: "0" }}>
-                                                <input type="number" className="form-control" onChange={(e) => { this.setState({ input: e.target.value }) }} />
+                                                <input type="number" className="form-control" onChange={(e) => { this.setState({ price_low: e.target.value }) }} />
                                             </MDBListGroupItem>
                                             <MDBListGroupItem style={{ borderWidth: "0" }}>
                                                 <MDBTypography variant='h5' className="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
@@ -160,7 +199,7 @@ class InputForm extends React.Component {
                                                 </MDBTypography>
                                             </MDBListGroupItem>
                                             <MDBListGroupItem style={{ borderWidth: "0" }}>
-                                                <input type="number" className="form-control" onChange={(e) => { this.setState({ input: e.target.value }) }} />
+                                                <input type="number" className="form-control" onChange={(e) => { this.setState({ price_high: e.target.value }) }} />
                                             </MDBListGroupItem>
                                             <MDBListGroupItem style={{ borderWidth: "0" }}>
                                                 <MDBTypography variant='h5' className="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
@@ -174,9 +213,9 @@ class InputForm extends React.Component {
                                                     label="Wybierz typ"
                                                     className="w-100"
                                                 >
-                                                    <MenuItem value={10}>x</MenuItem>
-                                                    <MenuItem value={20}>y</MenuItem>
-                                                    <MenuItem value={30}>z</MenuItem>
+                                                    <MenuItem value={10}>Dotacje</MenuItem>
+                                                    <MenuItem value={20}>Pożyczka</MenuItem>
+                                                    <MenuItem value={30}>Grant</MenuItem>
                                                 </Select>
 
                                             </MDBListGroupItem>
@@ -185,18 +224,18 @@ class InputForm extends React.Component {
                                                     Wielkość przedsiębiorstwa:
                                                 </MDBTypography>
                                             </MDBListGroupItem>
-                                            <MDBListGroupItem style={{ borderWidth: "0" }}>
+                                            <MDBListGroupItem style={{ borderWidth: "0" }} >
                                                 {/* 3 checkboxes */}
                                                 <div className="custom-control custom-checkbox">
-                                                    <input type="checkbox" className="custom-control-input" id="customCheck1" />
+                                                    <input type="checkbox" className="custom-control-input" id="customCheck1" onChange={(e) => {this.setState({company_small: e.target.value})}}/>
                                                     <label className="custom-control-label" htmlFor="customCheck1">Małe</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox">
-                                                    <input type="checkbox" className="custom-control-input" id="customCheck2" />
+                                                    <input type="checkbox" className="custom-control-input" id="customCheck2" onChange={(e) => {this.setState({company_medium: e.target.value})}}/>
                                                     <label className="custom-control-label" htmlFor="customCheck2">Średnie</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox">
-                                                    <input type="checkbox" className="custom-control-input" id="customCheck3" />
+                                                    <input type="checkbox" className="custom-control-input" id="customCheck3" onChange={(e) => {this.setState({company_big: e.target.value})}}/>
                                                     <label className="custom-control-label" htmlFor="customCheck3">Duże</label>
                                                 </div>
                                             </MDBListGroupItem>
@@ -231,7 +270,7 @@ class InputForm extends React.Component {
                                             </MDBTypography>
                                         </MDBListGroupItem>
                                         <MDBListGroupItem style={{ borderWidth: "0" }}>
-                                            <textarea className="form-control" rows="5" onChange={(e) => { this.setState({ input: e.target.value }) }}></textarea>
+                                            <textarea className="form-control" rows="5" onChange={(e) => { this.setState({ description: e.target.value }) }}></textarea>
                                         </MDBListGroupItem>
                                     </MDBRow>
                                     <MDBRow className="ml-0">
@@ -265,7 +304,7 @@ class InputForm extends React.Component {
                                     <Button variant="contained"
                                         className="mr-3 mt-3"
                                         style={{ backgroundColor: "#8B2635", fontFamily: "'Montserrat', sans-serif" }} variant="contained" disableElevation
-                                        onClick={() => { this.props.addItem(this.state.input) }}
+                                        onClick={this.handleSubmit}
                                     >
                                         Dodaj
                                     </Button>

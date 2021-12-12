@@ -1,8 +1,8 @@
 from typing import Dict, List
 from elasticsearch.client import Elasticsearch
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Form
+from pydantic import BaseModel
 from es_feeds import simple_query, create_and_feed, multiple_term_search, add_company_to_index, company_correlation_search
-from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import re
 from numpy import add
@@ -50,7 +50,7 @@ def transform_correlation_result(nip, correlation_result):
 def search(value: str):
     print(value)
     additional_info = {}
-    if len(value) == 9:
+    if len(value) == 10:
         # NIP
         # primary PKD
         primary_pkd, secondary_pkd, additional_info = get_info_by_nip(value)
@@ -69,11 +69,9 @@ def search(value: str):
                 "regon": additional_info["regon"],
                 "type_of_entity": additional_info["type_of_entity"],
                 'name': additional_info["name"]
-            }
-        )
+            })
 
-    elif len(value) == 10:
-        # REGON 10
+    elif len(value) == 9 or len(value) == 14:
         primary_pkd, secondary_pkd, additional_info = get_info_by_regon(value)
         query = [*primary_pkd, *secondary_pkd]
 
@@ -158,3 +156,21 @@ def pkd(value: str):
             propositions.append(item)
 
     return propositions
+
+
+@app.post("/submit_financing")
+def submit_financing(name: str = Form(...), 
+                     description: str = Form(...),
+                     price_low: str = Form(...),
+                     price_high: str = Form(...),
+                     pkds: list = Form(...),
+                     W3: str = Form(...),
+                     company_small: bool = Form(...),
+                     company_medium: bool = Form(...),
+                     company_big: bool = Form(...),
+                     financing_type: str = Form(...),
+                     url: list = Form(...)
+                     ):
+    print(name, description, price_low, price_high, pkds, W3, company_small, company_medium, company_big, financing_type, url)
+    
+    

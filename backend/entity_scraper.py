@@ -8,14 +8,14 @@ import pandas as pd
 
 
 def get_info_by_regon(regon):
-    return get_info('//*[@id="txtRegon"]')
+    return get_info('//*[@id="txtRegon"]', regon)
 
 
 def get_info_by_nip(nip):
-    return get_info('//*[@id="txtNip"]')
+    return get_info('//*[@id="txtNip"]', nip)
 
 
-def get_info(path):
+def get_info(path, value):
     options = Options()
     options.headless = True
     options.add_argument("--headless")
@@ -29,7 +29,7 @@ def get_info(path):
     input_field = driver.find_element(By.XPATH, path)
     search_btn = driver.find_element(By.XPATH, '//*[@id="btnSzukaj"]')
 
-    input_field.send_keys("357126121")
+    input_field.send_keys(value)
 
     search_btn.click()
     time.sleep(1)

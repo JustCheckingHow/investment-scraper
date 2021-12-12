@@ -5,6 +5,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import ReactPlaceholder from "react-placeholder";
 import { TextBlock, RectShape } from "react-placeholder/lib/placeholders";
 
+const path = require('path');
 const background = require("../../public/background.jpg");
 
 export class TilePlaceholder extends Component {
@@ -39,6 +40,7 @@ export class Tile extends React.Component {
         super(props);
     }
 
+
     getDocumentTile(url) {
         return (
             <MDBCol className={"p-0 col-6"}>
@@ -58,7 +60,7 @@ export class Tile extends React.Component {
                                     src="https://img.icons8.com/ios/50/000000/document--v1.png" />
                             </MDBCol>
                             <MDBCol className="col-7 m-0 p-0" style={{ textAlign: "left" }}>
-                                {url}
+                                {path.basename(url).substring(0, 30)}
                             </MDBCol>
                         </MDBRow>
                     </div>
@@ -69,7 +71,7 @@ export class Tile extends React.Component {
     }
 
     getMoney = () => {
-        if(this.props.tile.money.length == 0)
+        if(this.props.tile.money && this.props.tile.money.length == 0)
             return null;
 
         return (
@@ -77,7 +79,13 @@ export class Tile extends React.Component {
                 <MDBRow className={"mt-3 mx-3"} style={{ textAlign: "right" }}>
                     <MDBTypography tag="h5" variant="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                         <p className="mb-0 mt-2">
-                            Cena
+							{this.props.tile.source}
+                        </p>
+                    </MDBTypography>
+                </MDBRow>
+                <MDBRow className={"mt-3 mx-3"} style={{ textAlign: "right" }}>
+                    <MDBTypography tag="h5" variant="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                        <p className="mb-0 mt-2" dangerouslySetInnerHTML={{__html: "Funds: " + this.props.tile.money}}>
                         </p>
                     </MDBTypography>
                 </MDBRow>
@@ -108,8 +116,7 @@ export class Tile extends React.Component {
                     <MDBRow className={"ml-3 my-2"}>
                         <MDBCol className={"col-xl-8 ml-0 pl-0"}>
                             <MDBTypography tag="h6" variant="h6-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                                <p className="text-muted mb-0">
-                                    Description
+                                <p className="text-muted mb-0" dangerouslySetInnerHTML={{__html: this.props.tile.summary}}>
                                 </p>
                             </MDBTypography>
                         </MDBCol>

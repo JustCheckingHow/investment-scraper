@@ -6,12 +6,22 @@
                 {
                     "name": "name",
                     "description": "description",
-                    "url": "#"
+                    "documents": [
+                        "wp.pl",
+                        "onet.pl",
+                        "gazeta.pl",
+                        "interia.pl"
+                    ]
                 },
                 {
                     "name": "name2",
                     "description": "description2",
-                    "url": "#"
+                    "documents": [
+                        "wp.pl",
+                        "onet.pl",
+                        "gazeta.pl",
+                        "interia.pl"
+                    ]
                 }
             ],
             "additional_info": {

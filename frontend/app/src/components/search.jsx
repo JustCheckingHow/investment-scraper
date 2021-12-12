@@ -1,6 +1,7 @@
 import React from 'react';
 import { MDBCol, MDBRow, MDBCard, MDBTypography, MDBCardBody, MDBListGroup, MDBListGroupItem } from "mdb-react-ui-kit";
 import { Logo, SearchBar, Tile, TilePlaceholder } from './searchUI';
+import { CompanyTile } from './companyTile';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
@@ -70,11 +71,14 @@ class Search extends React.Component {
 
     render() {
         var source;
+        var TileClass;
         if (this.state.currentTab === 0) {
             source = this.state.tiles;
+            TileClass = Tile
         }
         else {
             source = this.state.companies;
+            TileClass = CompanyTile
         }
 
         return (
@@ -89,7 +93,7 @@ class Search extends React.Component {
                                 <TilePlaceholder ready={this.state.ready}>
                                     {
                                         source.map((tile, index) =>
-                                            <Tile key={index} tile={tile} />
+                                            <TileClass key={index} tile={tile} />
                                         )
                                     }
                                 </TilePlaceholder>

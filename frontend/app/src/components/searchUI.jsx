@@ -318,7 +318,7 @@ export class SearchBar extends Component {
                             ref={this.searchRef}
                             onKeyPress={this.onKeyPress}
                             onChange={this.onChange}
-                            placeholder="NIP/Regon/Nazwa firmy lub PKD"
+                            placeholder="NIP/Regon lub PKD"
                             className="w-100 pr-2 my-auto"
                             value={this.state.input}
                             style={{ backgroundColor: "white" }} />

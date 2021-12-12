@@ -146,16 +146,6 @@ class Search extends React.Component {
                             {this.state.companyInfo['regon']}
                         </MDBTypography>
                     </MDBCol>
-                    <MDBCol className="col-3 pr-2">
-                        <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "right" }}>
-                            <strong>NIP</strong>
-                        </MDBTypography>
-                    </MDBCol>
-                    <MDBCol className="col-3">
-                        <MDBTypography tag="h3" variant="h3-responsive" style={{ textAlign: "left" }}>
-                            NIP
-                        </MDBTypography>
-                    </MDBCol>
                 </MDBRow>
             </MDBCol>
         </MDBRow>);

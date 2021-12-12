@@ -232,6 +232,34 @@ def create_binary_pkd_vector(pkds):
     return vector.tolist()
 
 
+def dense_query(es: Elasticsearch, query_vector: List[int]):
+    query = {
+        "query": {
+            "script_score": {
+                "query": {
+                    "match_all": {}
+                },
+                "script": {
+                    "source": "dotProduct(params.queryVector, doc['pkd_vector']);",
+                    "params": {
+                        "queryVector": query_vector
+                    }
+                }
+            }
+        }
+    }
+    results = es.search(
+        index="company",
+        body=query
+    )
+    return results["hits"]["hits"]
+
+
+def company_correlation_search(es: Elasticsearch, pkds: List[str]):
+    pkd_vector = create_binary_pkd_vector(pkds)
+    return dense_query(es, pkd_vector)
+
+
 def add_company_to_index(es: Elasticsearch, company_dict: Dict[str, Any]):
     pkds = company_dict['pkd']
     pkd_vector = create_binary_pkd_vector(pkds)

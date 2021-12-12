@@ -178,7 +178,7 @@ def create_es_instance() -> Elasticsearch:
 
 def create_and_feed() -> Elasticsearch:
     es = create_es_instance()
-    upload_datasets(es)
+    # upload_datasets(es)
     return es
 
 

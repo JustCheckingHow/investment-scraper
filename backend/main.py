@@ -38,7 +38,7 @@ def transform_correlation_result(correlation_result):
     companies = []
     for r in correlation_result:
         companies.append({
-            *r['_source']
+            **r['_source']
         })
     return companies
 

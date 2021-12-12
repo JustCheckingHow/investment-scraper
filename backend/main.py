@@ -1,11 +1,13 @@
 import pkgutil
 from typing import Dict, List
 from elasticsearch.client import Elasticsearch
+from backend.es_feeds import add_company_to_index
 from fastapi import FastAPI, HTTPException
 from es_feeds import simple_query, create_and_feed, multiple_term_search
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import re
+from numpy import add
 import redis
 import pickle
 import json
@@ -26,7 +28,9 @@ def transform_es_search_results(es_result):
             "summary": res['highlight']['description'][0],
             "name": res["_source"]['name'],
             "URL": res["_source"]['URL'],
-            "source": res["_source"]["fund_source"]
+            "source": res["_source"]["fund_source"],
+            "money": res['_source']["financing_type"],
+            "documents": res["_source"]["files"]
         })
 
     return transformed_result
@@ -41,10 +45,33 @@ def search(value: str):
         # primary PKD
         primary_pkd, secondary_pkd, additional_info = get_info_by_nip(value)
         query = [*primary_pkd, *secondary_pkd]
+        add_company_to_index(
+            es,
+            company_dict={
+                "pkd": query,
+                "nip": additional_info,
+                "regon": additional_info["regon"],
+                "type_of_entity": additional_info["type_of_entity"],
+                'name': additional_info["name"]
+            }
+        )
+
     elif len(value) == 10:
         # REGON 10
         primary_pkd, secondary_pkd, additional_info = get_info_by_regon(value)
         query = [*primary_pkd, *secondary_pkd]
+
+        add_company_to_index(
+            es,
+            company_dict={
+                "pkd": query,
+                "nip": additional_info,
+                "regon": additional_info["regon"],
+                "type_of_entity": additional_info["type_of_entity"],
+                'name': additional_info["name"]
+            }
+        )
+
     else:
         # PKD
         # m = pkd_re.match(value)

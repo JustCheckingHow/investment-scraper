@@ -58,7 +58,9 @@ def search(value: str):
 
         # perform a search prior to adding the company
         correlation_results = company_correlation_search(es, query)
-        correlation_results = transform_correlation_result(correlation_results)
+        correlation_results = transform_correlation_result(
+            additional_info["nip"],
+            correlation_results)
         add_company_to_index(
             es,
             company_dict={
@@ -75,7 +77,9 @@ def search(value: str):
 
         # perform a search prior to adding the company
         correlation_results = company_correlation_search(es, query)
-        correlation_results = transform_correlation_result(correlation_results)
+        correlation_results = transform_correlation_result(
+            additional_info["nip"],
+            correlation_results)
         add_company_to_index(
             es,
             company_dict={
@@ -97,7 +101,9 @@ def search(value: str):
         query = m[1]
         # perform a search prior to adding the company
         correlation_results = company_correlation_search(es, query)
-        correlation_results = transform_correlation_result(correlation_results)
+        correlation_results = transform_correlation_result(
+            additional_info["nip"],
+            correlation_results)
 
     if not isinstance(query, list):
         results = simple_query(es, query)

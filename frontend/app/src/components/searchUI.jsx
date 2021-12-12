@@ -42,8 +42,17 @@ export class Tile extends React.Component {
 
 
     getDocumentTile(url) {
+        var filename = path.basename(url).substring(0, 30).replace("-", " ").replace("_", " ");
+        if(filename == 0) 
+            return;
+
+        var colwidths = [6, 4, 8];
+        if(filename.length > 13) {
+            colwidths = [12, 2, 10];
+        }
+
         return (
-            <MDBCol className={"p-0 col-6"}>
+            <MDBCol className={"p-0 col-"+colwidths[0]}>
                 {/* Round pill */}
                 <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                     <div className="rounded-pill p-1 m-2" style={{
@@ -53,13 +62,13 @@ export class Tile extends React.Component {
                         border: "1px solid rgb(154, 146, 146)"
                     }}>
                         <MDBRow className="m-0 p-0">
-                            <MDBCol className="col-5 m-0 p-0 pl-2 d-flex">
+                            <MDBCol className={" m-0 p-0 pl-2 d-flex col-"+colwidths[1]}>
                                 <img
                                     style={{ width: "16px", height: "16px" }}
                                     className="ml-auto mr-3 my-auto"
                                     src="https://img.icons8.com/ios/50/000000/document--v1.png" />
                             </MDBCol>
-                            <MDBCol className="col-7 m-0 p-0" style={{ textAlign: "left" }}>
+                            <MDBCol className={"m-0 p-0 col-"+colwidths[2]} style={{ textAlign: "left" }}>
                                 {path.basename(url).substring(0, 30)}
                             </MDBCol>
                         </MDBRow>

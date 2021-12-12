@@ -173,7 +173,7 @@ function getInfoTiles() {
                         <MDBCol>
                             <MDBTypography tag="h2" variant="h2-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                                 <p className="mb-0">
-                                    MoneyMaker
+                                    FundHub
                                 </p>
                             </MDBTypography>
                         </MDBCol>
@@ -181,7 +181,7 @@ function getInfoTiles() {
                     <MDBRow>
                         <MDBCol>
                             <MDBTypography tag="h6" variant="h6-responsive" style={{ lineHeight: "1.6", fontFamily: "'Montserrat', sans-serif" }}>
-                                MoneyMaker to innowacyjne rozwiązanie dla przedsiębiorców które w inteligentny sposób pomoże Ci odnaleźć okazje do inwestycji i dofinansowań dostosowane do Twojej firmy.
+                                FundHub to innowacyjne rozwiązanie dla przedsiębiorców które w inteligentny sposób pomoże Ci odnaleźć okazje do inwestycji i dofinansowań dostosowane do Twojej firmy.
                             </MDBTypography>
                             <MDBTypography
                                 tag="h6"

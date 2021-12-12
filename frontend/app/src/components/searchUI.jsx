@@ -43,16 +43,16 @@ export class Tile extends React.Component {
 
     getDocumentTile(url) {
         var filename = path.basename(url).substring(0, 30).replace("-", " ").replace("_", " ");
-        if(filename == 0) 
+        if (filename == 0)
             return;
 
         var colwidths = [6, 4, 8];
-        if(filename.length > 13) {
+        if (filename.length > 13) {
             colwidths = [12, 2, 10];
         }
 
         return (
-            <MDBCol className={"p-0 col-"+colwidths[0]}>
+            <MDBCol className={"p-0 col-" + colwidths[0]}>
                 {/* Round pill */}
                 <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                     <div className="rounded-pill p-1 m-2" style={{
@@ -62,13 +62,13 @@ export class Tile extends React.Component {
                         border: "1px solid rgb(154, 146, 146)"
                     }}>
                         <MDBRow className="m-0 p-0">
-                            <MDBCol className={" m-0 p-0 pl-2 d-flex col-"+colwidths[1]}>
+                            <MDBCol className={" m-0 p-0 pl-2 d-flex col-" + colwidths[1]}>
                                 <img
                                     style={{ width: "16px", height: "16px" }}
                                     className="ml-auto mr-3 my-auto"
                                     src="https://img.icons8.com/ios/50/000000/document--v1.png" />
                             </MDBCol>
-                            <MDBCol className={"m-0 p-0 col-"+colwidths[2]} style={{ textAlign: "left" }}>
+                            <MDBCol className={"m-0 p-0 col-" + colwidths[2]} style={{ textAlign: "left" }}>
                                 {path.basename(url).substring(0, 30)}
                             </MDBCol>
                         </MDBRow>
@@ -80,7 +80,7 @@ export class Tile extends React.Component {
     }
 
     getMoney = () => {
-        if(this.props.tile.money && this.props.tile.money.length == 0)
+        if (this.props.tile.money && this.props.tile.money.length == 0)
             return null;
 
         return (
@@ -88,17 +88,27 @@ export class Tile extends React.Component {
                 <MDBRow className={"mt-3 mx-3"} style={{ textAlign: "right" }}>
                     <MDBTypography tag="h5" variant="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                         <p className="mb-0 mt-2">
-							{this.props.tile.source}
+                            {this.props.tile.source}
                         </p>
                     </MDBTypography>
                 </MDBRow>
                 <MDBRow className={"mt-3 mx-3"} style={{ textAlign: "right" }}>
                     <MDBTypography tag="h5" variant="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                        <p className="mb-0 mt-2" dangerouslySetInnerHTML={{__html: "Funds: " + this.props.tile.money}}>
-                        </p>
+                        {
+                            this.props.tile.money !== "Undefined" ?
+                                <p className="mb-0 mt-2" dangerouslySetInnerHTML={{ __html: "Budżet: " + this.props.tile.money }}>
+                                </p> : null
+                        }
                     </MDBTypography>
                 </MDBRow>
                 <hr />
+                <MDBRow className="mr-3">
+                    <MDBTypography tag="h5" variant="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif", textAlign: "end" }}>
+                        <a href={this.props.tile.URL} target="_blank" rel="noopener noreferrer">
+                            Przejdź do pełnego opisu
+                        </a>
+                    </MDBTypography>
+                </MDBRow>
             </>
         )
     }
@@ -125,7 +135,7 @@ export class Tile extends React.Component {
                     <MDBRow className={"ml-3 my-2"}>
                         <MDBCol className={"col-xl-8 ml-0 pl-0"}>
                             <MDBTypography tag="h6" variant="h6-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                                <p className="text-muted mb-0" dangerouslySetInnerHTML={{__html: this.props.tile.summary}}>
+                                <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: this.props.tile.summary }}>
                                 </p>
                             </MDBTypography>
                         </MDBCol>

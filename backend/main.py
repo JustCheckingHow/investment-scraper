@@ -94,13 +94,12 @@ def search(value: str):
     else:
         # PKD
         # m = pkd_re.match(value)
-
         m = value.split("-")
         if len(m) < 2:
             raise HTTPException(status_code=304, detail="Invalid PKD request")
-        query = m[1]
+        query = m[-1].strip()
         # perform a search prior to adding the company
-        correlation_results = company_correlation_search(es, query)
+        correlation_results = company_correlation_search(es, [query])
         correlation_results = transform_correlation_result(
             correlation_results)
 

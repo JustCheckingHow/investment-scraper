@@ -28,8 +28,8 @@ def transform_es_search_results(es_result):
             "name": res["_source"]['name'],
             "URL": res["_source"]['URL'],
             "source": res["_source"]["fund_source"],
-            "money": res['_source']["fund_range"],
-            "documents": res["_source"]["files"]
+            "money": res['_source'].get("fund_range", "Undisclosed"),
+            "documents": res["_source"].get("files", [])
         })
 
     return transformed_result

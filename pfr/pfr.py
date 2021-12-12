@@ -129,7 +129,7 @@ def extract_funds():
             funds['desc'].append(basic_strip(desc))
 
     df = pd.DataFrame.from_dict(funds)
-    df.to_csv("PFR_granty.csv", index=False)
+    df.to_csv(" .csv", index=False)
 
 
 if __name__ == "__main__":

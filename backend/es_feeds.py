@@ -163,6 +163,26 @@ def upload_datasets(es: Elasticsearch, dataset_ext="*.pkl"):
                 print(response)
 
 
+def upload_financing(es: Elasticsearch, financing_form: Dict[str, Any]):
+    """Uploads all datasets to ES"""
+    def stream_record(financing_records: List[Dict[str, Any]]):
+        for record in financing_records:
+            yield {
+                "_index": "funds",
+                "_source": {
+                    'description': record['description'],
+                    'name': record['name'],
+                    'URL': record['URL'],
+                    "fund_range": record['funding'],
+                    'fund_source': record['source']
+                }
+            }
+    stream = stream_record(financing_records=[financing_form])
+    for ok, response in streaming_bulk(es, actions=stream):
+        if not ok:
+            print(response)
+
+
 def create_es_instance() -> Elasticsearch:
     load_dotenv(find_dotenv())
     user = os.environ.get("USER")

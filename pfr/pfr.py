@@ -83,8 +83,10 @@ def parse_PFR():
             free_text_data['FullDesc'].append(free_text)
             free_text_data['Name'].append(fund_name)
             free_text_data['URL'].append(url)
-
+            print(url)
             doc_links = follow_origin_href(url)
+            print(doc_links)
+            return
             if doc_links:
                 doc_links = list(set(doc_links))
                 # print(doc_links)
@@ -93,10 +95,10 @@ def parse_PFR():
                 free_text_data["Files"].append([])
         # except (requests.exceptions.SSLError, requests.exceptions.InvalidURL,
                 # requests.exceptions.MissingSchema):
-        except:
-            print("Failed", url)
-    tdf = pd.DataFrame.from_dict(free_text_data)
-    tdf.to_pickle("PARP.pkl")
+        # except:
+        #     print("Failed", url)
+    # tdf = pd.DataFrame.from_dict(free_text_data)
+    # tdf.to_pickle("PARP.pkl")
 
 
 def download_PFR():

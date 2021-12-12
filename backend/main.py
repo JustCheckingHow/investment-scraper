@@ -40,7 +40,8 @@ def transform_correlation_result(nip, correlation_result):
         if r["_source"]['nip'] == nip:
             continue
         companies.append({
-            **r['_source']
+            **r['_source'],
+            'score': r["_score"]
         })
     return companies
 

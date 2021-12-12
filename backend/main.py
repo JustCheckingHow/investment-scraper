@@ -1,4 +1,3 @@
-import pkgutil
 from typing import Dict, List
 from elasticsearch.client import Elasticsearch
 from fastapi import FastAPI, HTTPException

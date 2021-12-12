@@ -5,6 +5,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import ReactPlaceholder from "react-placeholder";
 import { TextBlock, RectShape } from "react-placeholder/lib/placeholders";
 
+const path = require('path');
 const background = require("../../public/background.jpg");
 
 export class TilePlaceholder extends Component {
@@ -39,6 +40,7 @@ export class Tile extends React.Component {
         super(props);
     }
 
+
     getDocumentTile(url) {
         return (
             <MDBCol className={"p-0 col-6"}>
@@ -58,7 +60,7 @@ export class Tile extends React.Component {
                                     src="https://img.icons8.com/ios/50/000000/document--v1.png" />
                             </MDBCol>
                             <MDBCol className="col-7 m-0 p-0" style={{ textAlign: "left" }}>
-                                {url}
+                                {path.basename(url).substring(0, 30)}
                             </MDBCol>
                         </MDBRow>
                     </div>

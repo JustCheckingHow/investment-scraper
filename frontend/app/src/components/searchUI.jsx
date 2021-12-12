@@ -7,6 +7,7 @@ import { TextBlock, RectShape } from "react-placeholder/lib/placeholders";
 
 const path = require('path');
 const background = require("../../public/background.jpg");
+const logo = require("../../public/logo.png");
 
 export class TilePlaceholder extends Component {
     getPlaceholder() {
@@ -160,7 +161,8 @@ export class Logo extends Component {
             <div className="logo d-flex">
                 <img id="logo-img" className="mx-auto mt-auto"
                     style={{ objectFit: 'contain', width: '250px', height: '100%' }}
-                    src="http://www.howtowearfair.com/wp-content/uploads/2018/02/logo-placeholder-1-1.png" alt="logo" />
+                    src={logo} alt="logo" />
+
             </div>
         );
     }
@@ -304,7 +306,7 @@ export class SearchBar extends Component {
             <SearchBarContainer>
                 <MDBNavbar className="fixed-top shadow-0" style={{ padding: "0 20%", color: "white", backgroundColor: "#08080832" }}>
                     <MDBTypography variant='h1' className="h1-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                        FanDing
+                        FundHub
                     </MDBTypography>
                 </MDBNavbar>
                 <MDBRow className="h-100" style={{ marginTop: "5%" }} >

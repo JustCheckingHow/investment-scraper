@@ -187,7 +187,7 @@ class InputForm extends React.Component {
                                             </MDBListGroupItem>
                                             <MDBListGroupItem style={{ borderWidth: "0" }}>
                                                 <MDBTypography variant='h5' className="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                                                    Kwota:
+                                                    Kwota minimalna:
                                                 </MDBTypography>
                                             </MDBListGroupItem>
                                             <MDBListGroupItem style={{ borderWidth: "0" }}>
@@ -195,7 +195,7 @@ class InputForm extends React.Component {
                                             </MDBListGroupItem>
                                             <MDBListGroupItem style={{ borderWidth: "0" }}>
                                                 <MDBTypography variant='h5' className="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                                                    Kwota:
+                                                    Kwota maksymalna:
                                                 </MDBTypography>
                                             </MDBListGroupItem>
                                             <MDBListGroupItem style={{ borderWidth: "0" }}>

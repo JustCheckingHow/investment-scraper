@@ -24,26 +24,9 @@ export class CompanyTile extends React.Component {
                                     <br />
                                 </MDBTypography>
                             </MDBCol>
-                            <MDBCol className={"col-4 mt-3"} style={{ textAlign: "right" }}>
-                                <MDBTypography tag="h6" variant="h6-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                                    <p className="text-muted mb-0">
-                                        Cośtam
-                                    </p>
-                                </MDBTypography>
-                            </MDBCol>
                         </MDBRow>
                         <MDBRow className={"ml-3 my-2"}>
-                            <MDBCol className={"col-xl-8 ml-0 pl-0"}>
-                                <MDBTypography tag="h6" variant="h6-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                                    <p className="text-muted mb-0">
-                                        Description
-                                    </p>
-                                </MDBTypography>
-                            </MDBCol>
-                        </MDBRow>
-                        <MDBRow className="align-items-end flex-grow-1 ml-3 mr-3 pt-2 pb-2 border-top" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                            {/* {this.getInfoTiles("ProvisionCosts")} */}
-                            Badge
+
                         </MDBRow>
                     </MDBCol>
                 </MDBRow>

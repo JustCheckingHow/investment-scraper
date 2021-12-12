@@ -47,7 +47,7 @@ def search(value: str):
             es,
             company_dict={
                 "pkd": query,
-                "nip": additional_info,
+                "nip": additional_info["nip"],
                 "regon": additional_info["regon"],
                 "type_of_entity": additional_info["type_of_entity"],
                 'name': additional_info["name"]
@@ -63,7 +63,7 @@ def search(value: str):
             es,
             company_dict={
                 "pkd": query,
-                "nip": additional_info,
+                "nip": additional_info["nip"],
                 "regon": additional_info["regon"],
                 "type_of_entity": additional_info["type_of_entity"],
                 'name': additional_info["name"]

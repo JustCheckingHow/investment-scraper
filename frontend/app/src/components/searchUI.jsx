@@ -69,7 +69,7 @@ export class Tile extends React.Component {
     }
 
     getMoney = () => {
-        if(this.props.tile.money.length == 0)
+        if(this.props.tile.money && this.props.tile.money.length == 0)
             return null;
 
         return (

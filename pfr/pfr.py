@@ -1,3 +1,4 @@
+from sys import version_info
 from bs4 import BeautifulSoup
 from collections import defaultdict
 import requests
@@ -28,6 +29,38 @@ def download_website(savename: str, addr: str):
     return p
 
 
+def download_page(addr: str):
+    r = requests.get(addr, headers=headers, verify=False)
+    p = html.unescape(r.text)
+    return p
+
+
+def find_file_reference(bs4_tag):
+    DOC_EXTENSIONS = (
+        '.doc', '.xml', '.docx', '.pdf', '.xls', '.xlsx', '.ppt', '.pptx',
+        '.txt', ' .tar', '.tar.gz', '.zip', '.7zip', '.rarń'
+    )
+    doc_links = []
+    hrefs = bs4_tag.find_all("a", href=True)
+    for href in hrefs:
+        pot_doc_link = href.get("href")
+        for ext in DOC_EXTENSIONS:
+            if pot_doc_link.endswith(ext):
+                # TODO: check if the format is right
+                doc_links.append(pot_doc_link)
+            if '/attachment' in pot_doc_link:
+                print("ALERT")
+                # doc_links.append("https://www.gov.pl/{}".format(pot_doc_link))
+    return doc_links
+
+
+def follow_origin_href(href):
+    parsed = download_page(href)
+    soup = BeautifulSoup(parsed, features="html.parser")
+    doc_links = find_file_reference(soup)
+    return doc_links
+
+
 def parse_PFR():
     free_text_data = defaultdict(list)
     df = pd.read_csv("PFR_granty.csv")
@@ -50,10 +83,20 @@ def parse_PFR():
             free_text_data['FullDesc'].append(free_text)
             free_text_data['Name'].append(fund_name)
             free_text_data['URL'].append(url)
+
+            doc_links = follow_origin_href(url)
+            if doc_links:
+                doc_links = list(set(doc_links))
+                # print(doc_links)
+                free_text_data['Files'].append(doc_links)
+            else:
+                free_text_data["Files"].append([])
+        # except (requests.exceptions.SSLError, requests.exceptions.InvalidURL,
+                # requests.exceptions.MissingSchema):
         except:
             print("Failed", url)
     tdf = pd.DataFrame.from_dict(free_text_data)
-    tdf.to_pickle("PFR_free_txt.pkl")
+    tdf.to_pickle("PARP.pkl")
 
 
 def download_PFR():

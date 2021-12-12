@@ -1,11 +1,9 @@
 from typing import Dict, List
 from elasticsearch.client import Elasticsearch
 from fastapi import FastAPI, HTTPException, Form
-from pydantic import BaseModel
-from es_feeds import simple_query, create_and_feed, multiple_term_search, add_company_to_index, company_correlation_search
+from es_feeds import simple_query, create_and_feed, multiple_term_search, add_company_to_index, company_correlation_search, upload_financing
 from fastapi.middleware.cors import CORSMiddleware
 import re
-from numpy import add
 import redis
 import pickle
 import json
@@ -159,7 +157,7 @@ def pkd(value: str):
 
 
 @app.post("/submit_financing")
-def submit_financing(name: str = Form(...), 
+def submit_financing(name: str = Form(...),
                      description: str = Form(...),
                      price_low: str = Form(...),
                      price_high: str = Form(...),
@@ -171,6 +169,14 @@ def submit_financing(name: str = Form(...),
                      financing_type: str = Form(...),
                      url: list = Form(...)
                      ):
-    print(name, description, price_low, price_high, pkds, W3, company_small, company_medium, company_big, financing_type, url)
-    
-    
+    upload_financing(
+        es,
+        financing_form={
+            "name": name,
+            "description": description + "\n".join(pkds),
+            "files": url,
+            "URL": "",
+            "fund_range": f"{price_low}-{price_high}",
+            "fund_source": "Custom"
+        }
+    )

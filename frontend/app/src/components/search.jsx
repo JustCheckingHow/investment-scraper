@@ -33,6 +33,7 @@ class Search extends React.Component {
                 console.log(data['additional_info']);
                 this.setState({
                     tiles: data['search_results'],
+                    companies: data['companies'],
                     companyInfo: data['additional_info'],
                     showCompany: showCompany,
                     ready: true,

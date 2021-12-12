@@ -68,11 +68,29 @@ export class Tile extends React.Component {
         );
     }
 
+    getMoney = () => {
+        if(this.props.tile.money.length == 0)
+            return null;
+
+        return (
+            <>
+                <MDBRow className={"mt-3 mx-3"} style={{ textAlign: "right" }}>
+                    <MDBTypography tag="h5" variant="h5-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                        <p className="mb-0 mt-2">
+                            Cena
+                        </p>
+                    </MDBTypography>
+                </MDBRow>
+                <hr />
+            </>
+        )
+    }
+
     render() {
         console.log(this.props.tile);
         return (
             <MDBRow
-                className={"my-3 ml-0 mr-0 shadow-sm h-100 p-0 border"}
+                className={"mt-3 ml-0 mr-0 shadow-sm h-100 p-0 border"}
                 style={{ color: "black", backgroundColor: "white" }}
             >
                 <MDBCol
@@ -98,14 +116,8 @@ export class Tile extends React.Component {
                     </MDBRow>
                 </MDBCol>
                 <MDBCol className="col-4">
-                    <MDBRow className={"col-4 mt-3"} style={{ textAlign: "right" }}>
-                        <MDBTypography tag="h6" variant="h6-responsive" style={{ fontFamily: "'Montserrat', sans-serif" }}>
-                            <p className="text-muted mb-0 mt-2">
-                                Cośtam
-                            </p>
-                        </MDBTypography>
-                    </MDBRow>
-                    <MDBRow>
+                    {this.getMoney()}
+                    <MDBRow className="my-3">
                         {this.props.tile.documents.map((url) => {
                             return this.getDocumentTile(url);
                         })}

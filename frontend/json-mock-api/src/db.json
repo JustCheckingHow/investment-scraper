@@ -11,7 +11,8 @@
                         "onet.pl",
                         "gazeta.pl",
                         "interia.pl"
-                    ]
+                    ],
+                    "money": "80 mln EUR"
                 },
                 {
                     "name": "name2",
@@ -21,7 +22,8 @@
                         "onet.pl",
                         "gazeta.pl",
                         "interia.pl"
-                    ]
+                    ],
+                    "money": ""
                 }
             ],
             "additional_info": {

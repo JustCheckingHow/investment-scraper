@@ -1,7 +1,7 @@
 from typing import Dict, List
 from elasticsearch.client import Elasticsearch
 from fastapi import FastAPI, HTTPException
-from es_feeds import simple_query, create_and_feed, multiple_term_search, add_company_to_index
+from es_feeds import simple_query, create_and_feed, multiple_term_search, add_company_to_index, company_correlation_search
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import re
@@ -34,6 +34,15 @@ def transform_es_search_results(es_result):
     return transformed_result
 
 
+def transform_correlation_result(correlation_result):
+    companies = []
+    for r in correlation_result:
+        companies.append({
+            *r['_source']
+        })
+    return companies
+
+
 @app.get("/search/{value}")
 def search(value: str):
     print(value)
@@ -43,6 +52,10 @@ def search(value: str):
         # primary PKD
         primary_pkd, secondary_pkd, additional_info = get_info_by_nip(value)
         query = [*primary_pkd, *secondary_pkd]
+
+        # perform a search prior to adding the company
+        correlation_results = company_correlation_search(es, query)
+        correlation_results = transform_correlation_result(correlation_results)
         add_company_to_index(
             es,
             company_dict={
@@ -59,6 +72,9 @@ def search(value: str):
         primary_pkd, secondary_pkd, additional_info = get_info_by_regon(value)
         query = [*primary_pkd, *secondary_pkd]
 
+        # perform a search prior to adding the company
+        correlation_results = company_correlation_search(es, query)
+        correlation_results = transform_correlation_result(correlation_results)
         add_company_to_index(
             es,
             company_dict={
@@ -73,10 +89,14 @@ def search(value: str):
     else:
         # PKD
         # m = pkd_re.match(value)
+
         m = value.split("-")
         if len(m) < 2:
             raise HTTPException(status_code=304, detail="Invalid PKD request")
         query = m[1]
+        # perform a search prior to adding the company
+        correlation_results = company_correlation_search(es, query)
+        correlation_results = transform_correlation_result(correlation_results)
 
     if not isinstance(query, list):
         results = simple_query(es, query)
@@ -86,7 +106,8 @@ def search(value: str):
     return {
         "search_results": results,
         "parsedQuery": query,
-        "additional_info": additional_info
+        "additional_info": additional_info,
+        "companies": correlation_results
     }
 
 

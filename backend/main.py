@@ -34,9 +34,11 @@ def transform_es_search_results(es_result):
     return transformed_result
 
 
-def transform_correlation_result(correlation_result):
+def transform_correlation_result(nip, correlation_result):
     companies = []
     for r in correlation_result:
+        if r["_source"]['nip'] == nip:
+            continue
         companies.append({
             **r['_source']
         })

@@ -173,8 +173,8 @@ def upload_financing(es: Elasticsearch, financing_form: Dict[str, Any]):
                     'description': record['description'],
                     'name': record['name'],
                     'URL': record['URL'],
-                    "fund_range": record['funding'],
-                    'fund_source': record['source']
+                    "fund_range": record['fund_range'],
+                    'fund_source': record['fund_source']
                 }
             }
     stream = stream_record(financing_records=[financing_form])
@@ -199,6 +199,7 @@ def create_es_instance() -> Elasticsearch:
 def create_and_feed() -> Elasticsearch:
     es = create_es_instance()
     return es
+
 
 def multiple_term_search(es: Elasticsearch, PKD: List[str]):
     query = {

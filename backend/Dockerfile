@@ -13,6 +13,7 @@ WORKDIR /app
 COPY *.py .env /app/
 COPY requirements.txt /app
 RUN pip install -r requirements.txt
+RUN pip install python-multipart multipart
 COPY data/*.pkl /app/
 ENV PATH=$PATH:/app
 RUN cp ../chromedriver /app/

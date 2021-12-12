@@ -3,7 +3,8 @@ from typing import Dict, List
 from elasticsearch.client import Elasticsearch
 from fastapi import FastAPI, HTTPException
 from es_feeds import simple_query, create_and_feed, multiple_term_search
-from fastapi import FastAPI#, Form
+from fastapi import FastAPI, Form
+from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import re
 import redis
@@ -104,14 +105,20 @@ def pkd(value: str):
 
     return propositions
 
-#@app.get("/submit_financing")
-#async def submit_financing(
-#            name: str = Form(...),
-#            description: str = Form(...),
-#            price: str = Form(...),
-#            PKD: str = Form(...),
-#            W3: str = Form(...),
-#            company_size: str = Form(...),
-#            financing_type: str = Form(...)):
-#    pass
-#    
+
+@app.post("/submit_financing")
+def submit_financing(name: str = Form(...), 
+                     description: str = Form(...),
+                     price_low: str = Form(...),
+                     price_high: str = Form(...),
+                     pkds: list = Form(...),
+                     W3: str = Form(...),
+                     company_small: bool = Form(...),
+                     company_medium: bool = Form(...),
+                     company_big: bool = Form(...),
+                     financing_type: str = Form(...),
+                     url: list = Form(...)
+                     ):
+    print(name, description, price_low, price_high, pkds, W3, company_small, company_medium, company_big, financing_type, url)
+    
+    

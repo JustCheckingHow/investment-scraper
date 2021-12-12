@@ -27,7 +27,7 @@ def transform_es_search_results(es_result):
             "name": res["_source"]['name'],
             "URL": res["_source"]['URL'],
             "source": res["_source"]["fund_source"],
-            "money": res['_source']["financing_type"],
+            "money": res['_source']["fund_range"],
             "documents": res["_source"]["files"]
         })
 
